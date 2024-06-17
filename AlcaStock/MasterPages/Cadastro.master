@@ -4,9 +4,11 @@
 <%@ Register Src="topo.ascx" TagName="topo" TagPrefix="uc2" %>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="pt-br">
     <head id="Head1" runat="server">
         <title>ALCASTOCK - Sistema de Gerenciamento de Estoque</title>
+        
+        <meta charset="UTF-8">
 
         <link href="../Estilos/estilo_padrao.css" type="text/css" rel="stylesheet" />
         <link rel="stylesheet" href="../Library/css/site.css" asp-append-version="true" />
@@ -203,6 +205,12 @@
                 $(".iconeDate").click(function () {
                     $(".date").datepicker("show");
                 });
+            });
+        </script>
+
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $(".money").mask("000.000,00");
             });
         </script>
     </body>

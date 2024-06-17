@@ -38,6 +38,7 @@ public partial class Paginas_Pessoa_CadProduto : AppBasePage
 
         if (!IsPostBack)
         {
+            chkControlaEstoque.Checked = false;
             ConfiguraTela();
             Utilitarios.AtribuirFuncoesJava(this);
         }

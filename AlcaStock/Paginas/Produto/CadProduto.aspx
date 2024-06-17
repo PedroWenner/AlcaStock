@@ -6,11 +6,8 @@
 <%@ Register Assembly="AGENDA.Controles" Namespace="AGENDA.Controles.UI" TagPrefix="cc3" %>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentCampos" runat="server">
-
+    
     <div class="alert alert-danger alert-dismissible fade show" role="alert" runat="server" id="divErros" visible="false">
-        <%--<button type="button" id="btnClose" data-element="<%= divErros.ClientID %>">
-            <span aria-hidden="true">&times;</span>
-        </button>--%>
         <strong>Atenção!</strong>
         <ul>
             <asp:Label runat="server" ID="lblErros" />
@@ -87,7 +84,7 @@
                                 <table>
                                     <tr>
                                         <td class="pdr-10">
-                                            <cc3:FieldTextBox ID="txtCusto" runat="server" ValueField="Custo (R$)" Width="150px" CssClass="input-cadastro" />
+                                            <cc3:FieldTextBox ID="txtCusto" runat="server" ValueField="Custo (R$)" Width="150px" CssClass="input-cadastro money" />
                                         </td>
                                         <td class="pdr-10">
                                             <cc3:FieldTextBox ID="txtLucroEsperado" runat="server" ValueField="Lucro Esperado (R$)" Width="150px" CssClass="input-cadastro" />
@@ -111,9 +108,12 @@
                                     <tr>
                                         <td class="pdr-10">
                                             <label class="rotulo">Controla Estoque</label><br />
-                                            <div class="btn-group" role="group">
-                                                <button type="button" class="btn btn-sm btn-light">Sim</button>
-                                                <button type="button" class="btn btn-sm btn-danger">Não</button>
+                                            <div class="toggle-btn">
+                                                <div class="btn-switch botao1 radius">
+                                                    <input type="checkbox" class="checkbox" id="chkControlaEstoque" runat="server" />
+                                                    <div class="on"></div>
+                                                    <div class="off"></div>
+                                                </div>
                                             </div>
                                         </td>
                                         <td class="pdr-10">
@@ -131,10 +131,13 @@
                                 <table width="50%">
                                     <tr>
                                         <td class="pdr-10">
-                                            <label class="rotulo">Status</label><br />
-                                            <div class="btn-group" role="group">
-                                                <button type="button" class="btn btn-sm btn-success">Ativo</button>
-                                                <button type="button" class="btn btn-sm btn-light">Inativo</button>
+                                            <label class="rotulo">Ativo</label><br />
+                                            <div class="toggle-btn">
+                                                <div class="btn-switch botao1 radius">
+                                                    <input type="checkbox" class="checkbox" id="chkStatus" runat="server" />
+                                                    <div class="on"></div>
+                                                    <div class="off"></div>
+                                                </div>
                                             </div>
                                         </td>
                                         <td class="pdr-10">

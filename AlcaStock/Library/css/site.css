@@ -1,3 +1,5 @@
+@charset "UTF-8";
+
 .rotulo {
     font-family: Nunito,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
     font-size: 12px;
@@ -406,4 +408,116 @@ input:disabled {
 
 .btn-pequeno {
     font-size: 10px!important;
+}
+
+.toggle-btn {
+    display: flex;
+    margin: 20px 0px 0px 0px;
+    width: 60px;
+    height: 10px;
+    box-sizing: border-box;
+}
+
+.button-cover {
+    height: 100px;
+    margin: 20px;
+    background-color: #fff;
+    box-shadow: 0 10px 20px -8px #c5d6d6;
+    border-radius: 4px;
+}
+
+.button-cover:before {
+    counter-increment: button-counter;
+    content: counter(button-counter);
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    color: #d7e3e3;
+    font-size: 12px;
+    line-height: 1;
+    padding: 5px;
+}
+
+.button-cover, .on, .off {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+
+.botao1 {
+    position: relative;
+    top: 50%;
+    width: 80px;
+    height: 30px;
+    margin: -25px auto 0 auto;
+    overflow: hidden;
+}
+
+    .botao1.radius, .botao1.radius .off {
+        border-radius: 5px;
+    }
+
+.checkbox {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    opacity: 0;
+    cursor: pointer;
+    z-index: 3;
+}
+
+.on {
+    z-index: 2;
+}
+
+.off {
+    width: 100%;
+    background-color: #e1fbe3;
+    transition: 0.3s ease all;
+    z-index: 1;
+}
+
+.btn-switch {
+    overflow: visible;
+}
+
+.btn-switch .on:before {
+    content: "SIM";
+    position: absolute;
+    top: 5px;
+    left: 4px;
+    width: auto;
+    height: 20px;
+    color: #fff;
+    font-size: 7px;
+    font-weight: bold;
+    text-align: center;
+    line-height: 0.5;
+    padding: 9px 4px;
+    background-color: #01cc21;
+    border-radius: 5px;
+}
+
+.btn-switch .off, .btn-switch .on, .btn-switch .on:before {
+    transform: rotateZ(0);
+    transition: 0.4s cubic-bezier(0.18, 0.89, 0.35, 1.15) all;
+}
+
+.btn-switch .checkbox:checked + .on {
+    transform: rotateZ(-180deg);
+}
+
+.btn-switch .checkbox:checked + .on:before {
+    content: "NAO";
+    background-color: #f70000;
+    transform: rotateZ(180deg);
+}
+
+.btn-switch .checkbox:checked ~ .off {
+    background-color: #fdd8d8;
+    transform: rotateZ(180deg);
 }
