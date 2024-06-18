@@ -188,7 +188,7 @@
     border-bottom-left-radius: 15px;
     border-bottom-right-radius: 15px;
 }
-/*ALTERAÇÕES CLASSES BOOTSTRAP*/
+/*ALTERAï¿½ï¿½ES CLASSES BOOTSTRAP*/
 /*.input-group-text {
     border-radius: 0 !important;
     cursor: pointer;
@@ -214,27 +214,27 @@
 }
 /* Estilo para o tamanho do datepicker */
 .ui-datepicker {
-    font-size: 8px; /* Ajuste o tamanho da fonte conforme necessário */
+    font-size: 8px; /* Ajuste o tamanho da fonte conforme necessï¿½rio */
 }
-/* Estilo para os botões Anterior e Próximo */
+/* Estilo para os botï¿½es Anterior e Prï¿½ximo */
 .ui-datepicker-prev, .ui-datepicker-next {
-    font-size: 8px; /* Ajuste o tamanho da fonte conforme necessário */
-    padding: 0px; /* Ajuste o espaçamento interno conforme necessário */
+    font-size: 8px; /* Ajuste o tamanho da fonte conforme necessï¿½rio */
+    padding: 0px; /* Ajuste o espaï¿½amento interno conforme necessï¿½rio */
 }
 /* Estilo para as datas */
 .ui-datepicker-calendar td a {
-    font-size: 8px; /* Ajuste o tamanho da fonte das datas conforme necessário */
-    padding: 0px 2px; /* Ajuste o espaçamento interno conforme necessário */
+    font-size: 8px; /* Ajuste o tamanho da fonte das datas conforme necessï¿½rio */
+    padding: 0px 2px; /* Ajuste o espaï¿½amento interno conforme necessï¿½rio */
 }
-/* Estilo para o cabeçalho do mês e ano */
+/* Estilo para o cabeï¿½alho do mï¿½s e ano */
 .ui-datepicker-title {
-    font-size: 10px; /* Ajuste o tamanho da fonte do cabeçalho conforme necessário */
-    padding: 0px; /* Ajuste o espaçamento interno conforme necessário */
+    font-size: 10px; /* Ajuste o tamanho da fonte do cabeï¿½alho conforme necessï¿½rio */
+    padding: 0px; /* Ajuste o espaï¿½amento interno conforme necessï¿½rio */
 }
-/* Estilo para o botão "Hoje" */
+/* Estilo para o botï¿½o "Hoje" */
 .ui-datepicker-current {
-    font-size: 8px; /* Ajuste o tamanho da fonte do botão "Hoje" conforme necessário */
-    padding: 0px; /* Ajuste o espaçamento interno conforme necessário */
+    font-size: 8px; /* Ajuste o tamanho da fonte do botï¿½o "Hoje" conforme necessï¿½rio */
+    padding: 0px; /* Ajuste o espaï¿½amento interno conforme necessï¿½rio */
 }
 /* Estilo para o hover sobre as datas */
 .ui-datepicker-calendar td a:hover {
@@ -343,11 +343,11 @@ input::-webkit-inner-spin-button {
 }
 
 input:disabled {
-    background-color: white;
+    background-color: #efefef;
 }
 
 .tumb-image {
-    max-width: 50px; /* Defina o tamanho máximo desejado */
+    max-width: 50px; /* Defina o tamanho mï¿½ximo desejado */
     max-height: 50px;
 }
 
@@ -372,16 +372,16 @@ input:disabled {
     background-color: #e5e4e4;
 }
 
-/* Estilo para o cabeçalho, se necessário */
+/* Estilo para o cabeï¿½alho, se necessï¿½rio */
 .gridview-header {
     background-color: #4e73df;
     background-image: linear-gradient(#3760d9, #466ad3 100%);
     border: 1px solid #224bc1;
     /*background-size: cover;
     background: #3760d9;
-    background: linear-gradient(#3760d9, #466ad3 100%);*/ /* Implementação W3C */
-    /*background: -moz-linear-gradient(#3760d9, #466ad3 100%);*/ /* Implementação Mozilla */
-    /*background: -webkit-gradient(linear, 0 0, 0 100%, from(#3760d9), to(#466ad3));*/ /* Implementação para browsers que renderizam via webkit */
+    background: linear-gradient(#3760d9, #466ad3 100%);*/ /* Implementaï¿½ï¿½o W3C */
+    /*background: -moz-linear-gradient(#3760d9, #466ad3 100%);*/ /* Implementaï¿½ï¿½o Mozilla */
+    /*background: -webkit-gradient(linear, 0 0, 0 100%, from(#3760d9), to(#466ad3));*/ /* Implementaï¿½ï¿½o para browsers que renderizam via webkit */
     /*-pie-background: linear-gradient(#3760d9, #466ad3 100%);
     filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#3760d9', EndColorStr='#466ad3');*/ /* IE6,IE7 */
     /*-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorStr='#3760d9', EndColorStr='#466ad3')";*/ /* IE8 */

@@ -6,7 +6,137 @@
 <%@ Register Assembly="AGENDA.Controles" Namespace="AGENDA.Controles.UI" TagPrefix="cc3" %>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentCampos" runat="server">
-    
+
+    <script type="text/javascript">
+        function calculaPrecoVenda() {
+            // Obtém os valores dos campos de entrada
+            var txtCusto = document.getElementById('<%= txtCusto.ClientID %>').value;
+            var txtPercLucro = document.getElementById('<%= txtPercLucro.ClientID %>').value;
+
+            // Converte os valores para números
+            var custo = parseFloat(txtCusto.replace('.', '').replace(',', '.'));
+            var percLucro = parseFloat(txtPercLucro.replace('.', '').replace(',', '.'));
+
+            if (isNaN(custo)) {
+                custo = 0;
+            }
+
+            if (isNaN(percLucro)) {
+                percLucro = 0;
+            }
+
+            // Calcula o preço de venda
+            var precoVenda = custo + (custo * (percLucro / 100));
+
+            if (isNaN(precoVenda)) {
+                precoVenda = 0;
+            }
+
+            // Exibe o preço de venda no campo correspondente
+            document.getElementById('<%= txtPrecoVenda.ClientID %>').value = precoVenda.toFixed(2).replace('.', ',');
+
+            calculaLiquido();
+
+            // Log dos valores para depuração
+            console.log('Custo:', custo);
+        }
+
+        function calculaLiquido() {
+            var txtPrecoVenda = document.getElementById('<%= txtPrecoVenda.ClientID %>').value;
+            var txtCusto = document.getElementById('<%= txtCusto.ClientID %>').value;
+
+            // Converte os valores para números
+            var custo = parseFloat(txtCusto.replace('.', '').replace(',', '.'));
+            var precoVenda = parseFloat(txtPrecoVenda.replace('.', '').replace(',', '.'));
+
+            if (isNaN(custo)) {
+                custo = 0;
+            }
+
+            if (isNaN(precoVenda)) {
+                precoVenda = 0;
+            }
+
+            var precoLiquido = precoVenda - custo;
+            console.log('Preço Venda:', precoVenda);
+            console.log('Preço Custo:', txtCusto);
+            if (isNaN(precoLiquido)) {
+                precoLiquido = 0;
+            }
+
+            document.getElementById('<%= txtLiquido.ClientID %>').value = precoLiquido.toFixed(2).replace('.', ',');
+
+            // Log dos valores para depuração
+        }
+
+        $(document).ready(function () {
+            $(document).ready(function () {
+                // Função para formatar a data como dd/MM/yyyy
+                function formatDate(date) {
+                    var day = ("0" + date.getDate()).slice(-2);
+                    var month = ("0" + (date.getMonth() + 1)).slice(-2);
+                    var year = date.getFullYear();
+                    return day + "/" + month + "/" + year;
+                }
+
+                var timeNow = new Date();
+                var formattedDate = formatDate(timeNow);
+                document.getElementById('<%= txtDataCadastro.ClientID %>').value = formattedDate;
+                console.log(timeNow);
+            });
+        });
+
+        $(document).ready(function () {
+            $('#increase').click(function () {
+                var quantity = parseInt($('#quantity').val());
+                $('#quantity').val(quantity + 1);
+            });
+
+            $('#decrease').click(function () {
+                var quantity = parseInt($('#quantity').val());
+                if (quantity > 0) {
+                    $('#quantity').val(quantity - 1);
+                }
+            });
+        });
+    </script>
+
+    <style>
+        .quantity-container {
+            display: flex;
+            align-items: center;
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1); 
+        }
+        .quantity-btn {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 16px;
+            outline: none;
+            transition: background-color 0.3s; 
+        }
+        .quantity-btn:disabled {
+            background-color: #ccc;
+            cursor: not-allowed; 
+        }
+        .quantity-btn:hover:not(:disabled) {
+            background-color: #0056b3; 
+        }
+        inpu#quantityo {
+            width: 50px;
+            text-align: center;
+            border: none;
+            font-size: 16px;
+            margin: 0 5px; 
+            }
+    </style>
+
     <div class="alert alert-danger alert-dismissible fade show" role="alert" runat="server" id="divErros" visible="false">
         <strong>Atenção!</strong>
         <ul>
@@ -84,16 +214,16 @@
                                 <table>
                                     <tr>
                                         <td class="pdr-10">
-                                            <cc3:FieldTextBox ID="txtCusto" runat="server" ValueField="Custo (R$)" Width="150px" CssClass="input-cadastro money" />
+                                            <cc3:FieldTextBox ID="txtCusto" runat="server" ValueField="Custo (R$)" Width="150px" CssClass="input-cadastro money" onblur="calculaPrecoVenda();" />
+                                        </td>
+                                        <%--<td class="pdr-10">
+                                            <cc3:FieldTextBox ID="txtLucroEsperado" runat="server" ValueField="Lucro Esperado (R$)" Width="150px" CssClass="input-cadastro money" />
+                                        </td>--%>
+                                        <td class="pdr-10">
+                                            <cc3:FieldTextBox ID="txtPercLucro" runat="server" ValueField="Perc. Lucro (%)" Width="150px" CssClass="input-cadastro perc" onblur="calculaPrecoVenda();" />
                                         </td>
                                         <td class="pdr-10">
-                                            <cc3:FieldTextBox ID="txtLucroEsperado" runat="server" ValueField="Lucro Esperado (R$)" Width="150px" CssClass="input-cadastro" />
-                                        </td>
-                                        <td class="pdr-10">
-                                            <cc3:FieldTextBox ID="txtPercLucro" runat="server" ValueField="Perc. Lucro (%)" Width="150px" CssClass="input-cadastro" />
-                                        </td>
-                                        <td class="pdr-10">
-                                            <cc3:FieldTextBox ID="txtPrecoVenda" runat="server" ValueField="Preço Venda (R$)" Width="150px" CssClass="input-cadastro" />
+                                            <cc3:FieldTextBox ID="txtPrecoVenda" runat="server" ValueField="Preço Venda (R$)" Width="150px" CssClass="input-cadastro money" Enabled="false" />
                                         </td>
                                         <td class="pdr-10">
                                             <cc3:FieldTextBox ID="txtLiquido" runat="server" ValueField="Líquido (R$)" Width="150px" CssClass="input-cadastro" Enabled="false" />
@@ -117,7 +247,13 @@
                                             </div>
                                         </td>
                                         <td class="pdr-10">
-                                            <cc3:FieldTextBox ID="txtEstoqueMinimo" runat="server" ValueField="Estoque Mínimo" Width="150px" CssClass="input-cadastro" Enabled="false" />
+                                            <div class="quantity-container">
+                                                <button class="quantity-btn" id="decrease" type="button">-</button>
+                                                <cc3:FieldTextBox ID="txtEstoqueMinimo" runat="server" ValueField="Estoque Mínimo" Width="150px" CssClass="input-cadastro" Enabled="false" Visible="false" />
+                                                <input type="text" id="quantity" value="0" readonly="readonly">
+                                                <button class="quantity-btn" id="increase" type="button">+</button>
+                                            </div>
+                                            
                                         </td>
                                         <td class="pdr-10">
                                             <cc3:FieldTextBox ID="txtEstoqueAtual" runat="server" ValueField="Estoque Atual" Width="150px" CssClass="input-cadastro" Enabled="false" />

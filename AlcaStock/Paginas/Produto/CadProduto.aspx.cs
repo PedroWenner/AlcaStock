@@ -78,7 +78,7 @@ public partial class Paginas_Pessoa_CadProduto : AppBasePage
                     MARCA = ddlMarca.SelectedValue,
                     UNIDADE_MEDIDA = txtUnidadeMedida.Text,
                     CUSTO = Utilitarios.FormataValorDecimal(txtCusto.Text),
-                    LUCRO_ESPERADO = Utilitarios.FormataValorDecimal(txtLucroEsperado.Text),
+                    //LUCRO_ESPERADO = Utilitarios.FormataValorDecimal(txtLucroEsperado.Text),
                     PERC_LUCRO = Utilitarios.FormataValorDecimal(txtPercLucro.Text),
                     PRECO_VENDA = Utilitarios.FormataValorDecimal(txtPrecoVenda.Text)
                 };
@@ -195,8 +195,8 @@ public partial class Paginas_Pessoa_CadProduto : AppBasePage
             er += "<li>Grupo deve ser preenchido</li>";
         if (string.IsNullOrWhiteSpace(txtCusto.Text))
             er += "<li>Custo deve ser preenchido!</li>";
-        if (string.IsNullOrWhiteSpace(txtLucroEsperado.Text))
-            er += "<li>Lucro esperado deve ser preenchido!</li>";
+        //if (string.IsNullOrWhiteSpace(txtLucroEsperado.Text))
+        //    er += "<li>Lucro esperado deve ser preenchido!</li>";
         if (string.IsNullOrWhiteSpace(txtEstoqueMinimo.Text))
             er += "<li>Estoque mínimo deve ser preenchido!</li>";
 
