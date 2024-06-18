@@ -972,6 +972,32 @@ public class Utilitarios
             return false;
     }
 
+    public static bool ConverteIntParaBool(int Valor)
+    {
+        return (Valor == 1);
+    }
+
+    /// <summary>
+    /// Método responsável por converter valor true ou false para S ou N
+    /// </summary>
+    /// <param name="valor">True ou False</param>
+    /// <returns>S ou N</returns>
+    public static string ConverteBoolParaSimNao(bool valor)
+    {
+        if (valor)
+            return "S";
+        else
+            return "N";
+    }
+
+    public static int ConverteBoolParaInt(bool valor)
+    {
+        if (valor)
+            return 1;
+        else
+            return 0;
+    }
+
     public static int Exec_IntSql_Return(String SQL)
     {
         int retorno = 0;

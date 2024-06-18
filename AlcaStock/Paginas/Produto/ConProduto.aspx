@@ -65,8 +65,8 @@
                     <asp:BoundColumn DataField="TIPO" HeaderText="Tipo" />
                     <asp:BoundColumn DataField="NOME" HeaderText="Descrição" />
                     <asp:BoundColumn DataField="MARCA" HeaderText="Marca" />
-                    <asp:BoundColumn DataField="ESTOQUE_ATUAL" HeaderText="Estoque atual" />
-                    <asp:BoundColumn DataField="STATUS" HeaderText="Status" />
+                    <%--<asp:BoundColumn DataField="ESTOQUE_ATUAL" HeaderText="Estoque atual" />--%>
+                    <asp:BoundColumn DataField="ATIVO" HeaderText="Status" />
                     <asp:BoundColumn DataField="SIS_DATA_INSERT" HeaderText="Data Cadastro" DataFormatString="{0:dd/MM/yyyy}" />
                 </Columns>
             </asp:DataGrid>

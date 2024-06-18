@@ -521,3 +521,61 @@ input:disabled {
     background-color: #fdd8d8;
     transform: rotateZ(180deg);
 }
+
+.quantidade {
+    border: none !important;
+    width: 30px;
+    text-align: center;
+    background: none !important;
+    box-shadow: none !important;
+    outline: none !important;
+}
+
+.quantidade:hover {
+    border: none !important;
+    background: none !important;
+    box-shadow: none !important;
+    outline: none !important;
+}
+
+.quantidade:focus {
+    outline: none !important;
+}
+
+.quantidade-btn {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    font-size: 10px;
+    outline: none;
+    transition: background-color 0.3s, transform 0.1s;
+    font-weight: bolder;
+    background: radial-gradient(circle closest-side, #466ad3 0%, #3760d9 90%, rgba(0, 0, 0, 0) 100%);
+}
+
+.quantidade-btn:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+.quantidade-btn:hover:not(:disabled) {
+    background: radial-gradient(circle closest-side, #bababa 0%, #e0e1e2 90%, rgba(0, 0, 0, 0) 100%);
+    color: black;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+.quantidade-btn:active:not(:disabled) {
+    transform: scale(0.95);
+    transition: transform 0.1s;
+}
+
+inpu#quantityo {
+    width: 50px;
+    text-align: center;
+    border: none;
+    font-size: 16px;
+    margin: 0 5px;
+}

@@ -21,8 +21,7 @@ namespace Alcastock.Repositorios
 
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
-                string query = @"
-                SELECT * FROM PRODUTOS WHERE 1=1";
+                string query = "SELECT * FROM PRODUTOS WHERE 1=1";
 
                 if (tipoConsulta == "0")
                     query += " AND NOME LIKE @DESCRICAO";
@@ -37,23 +36,23 @@ namespace Alcastock.Repositorios
                 {
                     ProdutoModel produto = new ProdutoModel
                     {
-                        PRODUTO_ID = int.Parse(reader["PESSOA_ID"].ToString()),
-                        CODIGO = reader["CODIGO"].ToString(),
-                        TIPO = reader["TIPO"].ToString(),
-                        NOME = reader["NOME"].ToString(),
-                        GRUPO = reader["GRUPO"].ToString(),
-                        MARCA = reader["MARCA"].ToString(),
-                        UNIDADE_MEDIDA = reader["UNIDADE_MEDIDA"].ToString(),
-                        CUSTO = Convert.ToDecimal(reader["CUSTO"].ToString()),
-                        LUCRO_ESPERADO = Convert.ToDecimal(reader["LUCRO_ESPERADO"].ToString()),
-                        PERC_LUCRO = Convert.ToDecimal(reader["PERC_LUCRO"].ToString()),
-                        PRECO_VENDA = Convert.ToDecimal(reader["PRECO_VENDA"].ToString()),
-                        CONTROLA_ESTOQUE = reader["CONTROLA_ESTOQUE"].ToString(),
-                        ESTOQUE_MININO = int.Parse(reader["ESTOQUE_MININO"].ToString()),
-                        ESTOQUE_ATUAL = int.Parse(reader["ESTOQUE_ATUAL"].ToString()),
-                        STATUS = int.Parse(reader["STATUS"].ToString()),
-                        SIS_DATA_INSERT = Convert.ToDateTime(reader["SIS_DATA_INSERT"]),
-                        SIS_DATA_UPDATE = Convert.ToDateTime(reader["SIS_DATA_UPDATE"])
+                        PRODUTO_ID = int.Parse(reader["PRODUTO_ID"].ToString())
+                        , CODIGO = reader["CODIGO"].ToString()
+                        , TIPO = reader["TIPO"].ToString()
+                        , NOME = reader["NOME"].ToString()
+                        , GRUPO = reader["GRUPO"].ToString()
+                        , MARCA = reader["MARCA"].ToString()
+                        , UNIDADE_MEDIDA = int.Parse(reader["UNIDADE_MEDIDA"].ToString())
+                        , CUSTO = Convert.ToDecimal(reader["CUSTO"].ToString())
+                        //LUCRO_ESPERADO = Convert.ToDecimal(reader["LUCRO_ESPERADO"].ToString()),
+                        , PERC_LUCRO = Convert.ToDecimal(reader["PERC_LUCRO"].ToString())
+                        //PRECO_VENDA = Convert.ToDecimal(reader["PRECO_VENDA"].ToString()),
+                        , CONTROLA_ESTOQUE = reader["CONTROLA_ESTOQUE"].ToString()
+                        , ESTOQUE_MININO = int.Parse(reader["ESTOQUE_MININO"].ToString())
+                        //ESTOQUE_ATUAL = int.Parse(reader["ESTOQUE_ATUAL"].ToString()),
+                        , ATIVO = reader["ATIVO"].ToString()
+                        , SIS_DATA_INSERT = Convert.ToDateTime(reader["SIS_DATA_INSERT"])
+                        //, SIS_DATA_UPDATE = Convert.ToDateTime(reader["SIS_DATA_UPDATE"])
                     };
 
                     produtos.Add(produto);
@@ -69,8 +68,7 @@ namespace Alcastock.Repositorios
 
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
-                string query = @"
-                SELECT * FROM PRODUTOS WHERE PRODUTO_ID = @PRODUTO_ID";
+                string query = "SELECT * FROM PRODUTOS WHERE PRODUTO_ID = @PRODUTO_ID";
 
                 SqlCommand cmd = new SqlCommand(query, connection);
                 cmd.Parameters.AddWithValue("@PRODUTO_ID", produtoId);
@@ -82,23 +80,23 @@ namespace Alcastock.Repositorios
                 {
                     ProdutoModel produto = new ProdutoModel
                     {
-                        PRODUTO_ID = int.Parse(reader["PESSOA_ID"].ToString()),
-                        CODIGO = reader["CODIGO"].ToString(),
-                        TIPO = reader["TIPO"].ToString(),
-                        NOME = reader["NOME"].ToString(),
-                        GRUPO = reader["GRUPO"].ToString(),
-                        MARCA = reader["MARCA"].ToString(),
-                        UNIDADE_MEDIDA = reader["UNIDADE_MEDIDA"].ToString(),
-                        CUSTO = Convert.ToDecimal(reader["CUSTO"].ToString()),
-                        LUCRO_ESPERADO = Convert.ToDecimal(reader["LUCRO_ESPERADO"].ToString()),
-                        PERC_LUCRO = Convert.ToDecimal(reader["PERC_LUCRO"].ToString()),
-                        PRECO_VENDA = Convert.ToDecimal(reader["PRECO_VENDA"].ToString()),
-                        CONTROLA_ESTOQUE = reader["CONTROLA_ESTOQUE"].ToString(),
-                        ESTOQUE_MININO = int.Parse(reader["ESTOQUE_MININO"].ToString()),
-                        ESTOQUE_ATUAL = int.Parse(reader["ESTOQUE_ATUAL"].ToString()),
-                        STATUS = int.Parse(reader["STATUS"].ToString()),
-                        SIS_DATA_INSERT = Convert.ToDateTime(reader["SIS_DATA_INSERT"]),
-                        SIS_DATA_UPDATE = Convert.ToDateTime(reader["SIS_DATA_UPDATE"])
+                        PRODUTO_ID = int.Parse(reader["PRODUTO_ID"].ToString())
+                        , CODIGO = reader["CODIGO"].ToString()
+                        , TIPO = reader["TIPO"].ToString()
+                        , NOME = reader["NOME"].ToString()
+                        , GRUPO = reader["GRUPO"].ToString()
+                        , MARCA = reader["MARCA"].ToString()
+                        , UNIDADE_MEDIDA = int.Parse(reader["UNIDADE_MEDIDA"].ToString())
+                        , CUSTO = Convert.ToDecimal(reader["CUSTO"].ToString())
+                        //LUCRO_ESPERADO = Convert.ToDecimal(reader["LUCRO_ESPERADO"].ToString()),
+                        , PERC_LUCRO = Convert.ToDecimal(reader["PERC_LUCRO"].ToString())
+                        //PRECO_VENDA = Convert.ToDecimal(reader["PRECO_VENDA"].ToString()),
+                        , CONTROLA_ESTOQUE = reader["CONTROLA_ESTOQUE"].ToString()
+                        , ESTOQUE_MININO = int.Parse(reader["ESTOQUE_MININO"].ToString())
+                        //ESTOQUE_ATUAL = int.Parse(reader["ESTOQUE_ATUAL"].ToString()),
+                        , ATIVO = reader["ATIVO"].ToString()
+                        , SIS_DATA_INSERT = Convert.ToDateTime(reader["SIS_DATA_INSERT"])
+                        //, SIS_DATA_UPDATE = Convert.ToDateTime(reader["SIS_DATA_UPDATE"])
                     };
 
                     produtos.Add(produto);
@@ -116,10 +114,10 @@ namespace Alcastock.Repositorios
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
-                string query = @"SET DATEFORMAT DMY; INSERT INTO PRODUTOS (CODIGO, TIPO, NOME, GRUPO, MARCA, UNIDADE_MEDIDA, CUSTO, LUCRO_ESPERADO
-                                , PERC_LUCRO, PRECO_VENDA, CONTROLA_ESTOQUE, ESTOQUE_MININO, ESTOQUE_ATUAL, STATUS, SIS_USUARIO_INSERT, SIS_DATA_INSERT)
-                                VALUES (@CODIGO, @TIPO, @NOME, @GRUPO, @MARCA, @UNIDADE_MEDIDA, @CUSTO, @LUCRO_ESPERADO
-                                , @PERC_LUCRO, @PRECO_VENDA, @CONTROLA_ESTOQUE, @ESTOQUE_MININO, @ESTOQUE_ATUAL, @STATUS, @SIS_USUARIO_INSERT, @SIS_DATA_INSERT)";
+                string query = @"SET DATEFORMAT DMY; INSERT INTO PRODUTOS (CODIGO, TIPO, NOME, GRUPO, MARCA, UNIDADE_MEDIDA, CUSTO
+                                , PERC_LUCRO, PRECO_VENDA, CONTROLA_ESTOQUE, ESTOQUE_MININO, ATIVO, SIS_USER_INSERT, SIS_DATA_INSERT)
+                                VALUES (@CODIGO, @TIPO, @NOME, @GRUPO, @MARCA, @UNIDADE_MEDIDA, @CUSTO, @PERC_LUCRO, @PRECO_VENDA, @CONTROLA_ESTOQUE,
+                                @ESTOQUE_MININO, @ATIVO, @SIS_USER_INSERT, @SIS_DATA_INSERT)";
 
                 SqlCommand cmd = new SqlCommand(query, connection);
                 SqlParameter[] parms = GetSqlParameterArray(produto);
@@ -192,7 +190,7 @@ namespace Alcastock.Repositorios
                 new SqlParameter("NOME", DbType.String),
                 new SqlParameter("GRUPO", DbType.String),
                 new SqlParameter("MARCA", DbType.String),
-                new SqlParameter("UNIDADE_MEDIDA", DbType.String),
+                new SqlParameter("UNIDADE_MEDIDA", DbType.Int32),
                 new SqlParameter("CUSTO", DbType.Decimal),
                 new SqlParameter("LUCRO_ESPERADO", DbType.Decimal),
                 new SqlParameter("PERC_LUCRO", DbType.Decimal),
@@ -200,8 +198,8 @@ namespace Alcastock.Repositorios
                 new SqlParameter("CONTROLA_ESTOQUE", DbType.String),
                 new SqlParameter("ESTOQUE_MININO", DbType.Int32),
                 new SqlParameter("ESTOQUE_ATUAL", DbType.Int32),
-                new SqlParameter("STATUS", DbType.Int32),
-                new SqlParameter("SIS_USUARIO_INSERT",DbType.String),
+                new SqlParameter("ATIVO", DbType.String),
+                new SqlParameter("SIS_USER_INSERT",DbType.String),
                 new SqlParameter("SIS_DATA_INSERT",DbType.DateTime),
                 new SqlParameter("SIS_USUARIO_UPDATE",DbType.String),
                 new SqlParameter("SIS_DATA_UPDATE",DbType.DateTime)
@@ -234,7 +232,7 @@ namespace Alcastock.Repositorios
             if (x.MARCA != null)
                 parms[4].Value = x.MARCA;
 
-            if (x.UNIDADE_MEDIDA != null)
+            if (x.UNIDADE_MEDIDA != 0)
                 parms[5].Value = x.UNIDADE_MEDIDA;
 
             if (x.CUSTO != 0)
@@ -258,11 +256,11 @@ namespace Alcastock.Repositorios
             if (x.ESTOQUE_ATUAL != null)
                 parms[12].Value = x.ESTOQUE_ATUAL;
 
-            if (x.STATUS != 0)
-                parms[13].Value = x.STATUS;
+            if (x.ATIVO != null)
+                parms[13].Value = x.ATIVO;
 
-            if (x.SIS_USUARIO_INSERT != null)
-                parms[14].Value = x.SIS_USUARIO_INSERT;
+            if (x.SIS_USER_INSERT != null)
+                parms[14].Value = x.SIS_USER_INSERT;
 
             if (x.SIS_DATA_INSERT != null)
                 parms[15].Value = x.SIS_DATA_INSERT;

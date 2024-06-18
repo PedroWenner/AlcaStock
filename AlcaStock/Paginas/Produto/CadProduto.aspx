@@ -87,55 +87,23 @@
         });
 
         $(document).ready(function () {
-            $('#increase').click(function () {
-                var quantity = parseInt($('#quantity').val());
-                $('#quantity').val(quantity + 1);
+            $('#mais').click(function () {
+                var quantity = parseInt(document.getElementById('<%= txtEstoqueMinimo.ClientID %>').value);
+                //var quantity = parseInt($('#quantity').val());
+                //$('#quantity').val(quantity + 1);
+                document.getElementById('<%= txtEstoqueMinimo.ClientID %>').value = quantity + 1;
             });
 
-            $('#decrease').click(function () {
-                var quantity = parseInt($('#quantity').val());
+            $('#menos').click(function () {
+                var quantity = parseInt(document.getElementById('<%= txtEstoqueMinimo.ClientID %>').value);
+                //var quantity = parseInt($('#quantity').val());
                 if (quantity > 0) {
-                    $('#quantity').val(quantity - 1);
+                    document.getElementById('<%= txtEstoqueMinimo.ClientID %>').value = quantity - 1;
+                    //$('#quantity').val(quantity - 1);
                 }
             });
         });
     </script>
-
-    <style>
-        .quantity-container {
-            display: flex;
-            align-items: center;
-            background-color: white;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            overflow: hidden;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1); 
-        }
-        .quantity-btn {
-            background-color: #007bff;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            cursor: pointer;
-            font-size: 16px;
-            outline: none;
-            transition: background-color 0.3s; 
-        }
-        .quantity-btn:disabled {
-            background-color: #ccc;
-            cursor: not-allowed; 
-        }
-        .quantity-btn:hover:not(:disabled) {
-            background-color: #0056b3; 
-        }
-        inpu#quantityo {
-            width: 50px;
-            text-align: center;
-            border: none;
-            font-size: 16px;
-            margin: 0 5px; 
-            }
-    </style>
 
     <div class="alert alert-danger alert-dismissible fade show" role="alert" runat="server" id="divErros" visible="false">
         <strong>Atenção!</strong>
@@ -223,10 +191,10 @@
                                             <cc3:FieldTextBox ID="txtPercLucro" runat="server" ValueField="Perc. Lucro (%)" Width="150px" CssClass="input-cadastro perc" onblur="calculaPrecoVenda();" />
                                         </td>
                                         <td class="pdr-10">
-                                            <cc3:FieldTextBox ID="txtPrecoVenda" runat="server" ValueField="Preço Venda (R$)" Width="150px" CssClass="input-cadastro money" Enabled="false" />
+                                            <cc3:FieldTextBox ID="txtPrecoVenda" runat="server" ValueField="Preço Venda (R$)" Width="150px" CssClass="input-cadastro money" ReadOnly="true" />
                                         </td>
                                         <td class="pdr-10">
-                                            <cc3:FieldTextBox ID="txtLiquido" runat="server" ValueField="Líquido (R$)" Width="150px" CssClass="input-cadastro" Enabled="false" />
+                                            <cc3:FieldTextBox ID="txtLiquido" runat="server" ValueField="Líquido (R$)" Width="150px" CssClass="input-cadastro money" ReadOnly="true" />
                                         </td>
                                     </tr>
                                 </table>
@@ -247,13 +215,12 @@
                                             </div>
                                         </td>
                                         <td class="pdr-10">
-                                            <div class="quantity-container">
-                                                <button class="quantity-btn" id="decrease" type="button">-</button>
-                                                <cc3:FieldTextBox ID="txtEstoqueMinimo" runat="server" ValueField="Estoque Mínimo" Width="150px" CssClass="input-cadastro" Enabled="false" Visible="false" />
-                                                <input type="text" id="quantity" value="0" readonly="readonly">
-                                                <button class="quantity-btn" id="increase" type="button">+</button>
-                                            </div>
-                                            
+                                            <label class="rotulo">Quantidade</label><br />
+                                            <button class="quantidade-btn" id="menos" type="button">-</button>
+                                            <asp:TextBox ID="txtEstoqueMinimo" runat="server" CssClass="quantidade" Text="0" />
+                                            <button class="quantidade-btn" id="mais" type="button">+</button>
+                                            <%--<div class="quantity-container">
+                                            </div>--%>
                                         </td>
                                         <td class="pdr-10">
                                             <cc3:FieldTextBox ID="txtEstoqueAtual" runat="server" ValueField="Estoque Atual" Width="150px" CssClass="input-cadastro" Enabled="false" />

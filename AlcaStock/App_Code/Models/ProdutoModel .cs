@@ -11,7 +11,7 @@ namespace Models
         private string _NOME;
         private string _GRUPO;
         private string _MARCA;
-        private string _UNIDADE_MEDIDA;
+        private int? _UNIDADE_MEDIDA;
         private decimal _CUSTO;
         private decimal _LUCRO_ESPERADO;
         private decimal _PERC_LUCRO;
@@ -19,8 +19,8 @@ namespace Models
         private string _CONTROLA_ESTOQUE;
         private int? _ESTOQUE_MININO;
         private int? _ESTOQUE_ATUAL;
-        private int _STATUS;
-        private string _SIS_USUARIO_INSERT;
+        private string _ATIVO;
+        private string _SIS_USER_INSERT;
         private DateTime? _SIS_DATA_INSERT;
         private string _SIS_USUARIO_UPDATE;
         private DateTime? _SIS_DATA_UPDATE;
@@ -56,7 +56,7 @@ namespace Models
             get { return _MARCA; }
             set { _MARCA = value; }
         }
-        public string UNIDADE_MEDIDA
+        public int? UNIDADE_MEDIDA
         {
             get { return _UNIDADE_MEDIDA; }
             set { _UNIDADE_MEDIDA = value; }
@@ -96,15 +96,15 @@ namespace Models
             get { return _ESTOQUE_ATUAL; }
             set { _ESTOQUE_ATUAL = value; }
         }
-        public int STATUS
+        public string ATIVO
         {
-            get { return _STATUS; }
-            set { _STATUS = value; }
+            get { return _ATIVO; }
+            set { _ATIVO = value; }
         }
-        public string SIS_USUARIO_INSERT
+        public string SIS_USER_INSERT
         {
-            get { return _SIS_USUARIO_INSERT; }
-            set { _SIS_USUARIO_INSERT = value; }
+            get { return _SIS_USER_INSERT; }
+            set { _SIS_USER_INSERT = value; }
         }
         public DateTime? SIS_DATA_INSERT
         {

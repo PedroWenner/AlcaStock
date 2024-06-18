@@ -76,12 +76,19 @@ public partial class Paginas_Pessoa_CadProduto : AppBasePage
                     NOME = txtNome.Text,
                     GRUPO = ddlGrupo.SelectedValue,
                     MARCA = ddlMarca.SelectedValue,
-                    UNIDADE_MEDIDA = txtUnidadeMedida.Text,
+                    UNIDADE_MEDIDA = int.Parse(txtUnidadeMedida.Text),
                     CUSTO = Utilitarios.FormataValorDecimal(txtCusto.Text),
                     //LUCRO_ESPERADO = Utilitarios.FormataValorDecimal(txtLucroEsperado.Text),
                     PERC_LUCRO = Utilitarios.FormataValorDecimal(txtPercLucro.Text),
-                    PRECO_VENDA = Utilitarios.FormataValorDecimal(txtPrecoVenda.Text)
+                    PRECO_VENDA = Utilitarios.FormataValorDecimal(txtPrecoVenda.Text),
+                    CONTROLA_ESTOQUE = Utilitarios.ConverteBoolParaSimNao(!chkControlaEstoque.Checked),
+                    ESTOQUE_MININO = int.Parse(txtEstoqueMinimo.Text),
+                    ATIVO = Utilitarios.ConverteBoolParaSimNao(!chkStatus.Checked),
+                    SIS_USER_INSERT = "Pedro Wenner",
+                    SIS_DATA_INSERT = DateTime.Now
                 };
+
+                produtoController.SalvarProduto(produto);
 
                 Response.Cookies["MsgSucesso"].Value = "Produto adicionada com sucesso!";
             }
@@ -97,7 +104,7 @@ public partial class Paginas_Pessoa_CadProduto : AppBasePage
             Response.Cookies["MsgSucesso"].Expires = DateTime.Now.AddSeconds(1); // Define o tempo de expiração do cookie
 
             // Redireciona para a página de destino
-            Response.Redirect("/Pessoa/ConProduto");
+            Response.Redirect("/Produto/ConProduto");
         }
         else
         {
@@ -189,10 +196,10 @@ public partial class Paginas_Pessoa_CadProduto : AppBasePage
             er += "<li>Campo código não pode ser vazio!</li>";
         if (string.IsNullOrWhiteSpace(txtNome.Text))
             er += "<li>Campo nome não pode ser vazio!</li>";
-        if (ddlGrupo.SelectedIndex == 0)
-            er += "<li>Grupo deve ser preenchido</li>";
-        if (ddlMarca.SelectedIndex == 0)
-            er += "<li>Grupo deve ser preenchido</li>";
+        //if (ddlGrupo.SelectedIndex == 0)
+        //    er += "<li>Grupo deve ser preenchido</li>";
+        //if (ddlMarca.SelectedIndex == 0)
+        //    er += "<li>Grupo deve ser preenchido</li>";
         if (string.IsNullOrWhiteSpace(txtCusto.Text))
             er += "<li>Custo deve ser preenchido!</li>";
         //if (string.IsNullOrWhiteSpace(txtLucroEsperado.Text))
