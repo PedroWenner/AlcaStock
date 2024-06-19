@@ -1200,6 +1200,19 @@ public class Utilitarios
         }
     }
 
+    public static void AtualizaDropDown(DropDownList ddl, DataTable dt, string text, string value, string textItemZero, string valorCampo)
+    {
+        ddl.DataSource = dt;
+        ddl.DataTextField = text;
+        ddl.DataValueField = value;
+        ddl.DataBind();
+        //-> Cria o ListItem que será inserido na posição Zero
+        ListItem lst = new ListItem();
+        lst.Text = textItemZero;
+        lst.Value = valorCampo;
+        //-> Insere o ListItem na posição Zero
+        ddl.Items.Insert(0, lst);
+    }
     #endregion Metodos
 
     #region JavaScript

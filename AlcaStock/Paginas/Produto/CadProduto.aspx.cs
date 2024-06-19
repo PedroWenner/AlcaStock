@@ -1,4 +1,4 @@
-﻿using Models;
+﻿using Produto.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,8 +11,9 @@ using Alcastock.Repositorios;
 using AlcaStock.Attributes;
 using System.Xml.Linq;
 using System.IO;
+using System.Data;
 
-public partial class Paginas_Pessoa_CadProduto : AppBasePage
+public partial class Paginas_Produto_CadProduto : AppBasePage
 {
     #region Propiedades
 
@@ -76,11 +77,12 @@ public partial class Paginas_Pessoa_CadProduto : AppBasePage
                     NOME = txtNome.Text,
                     GRUPO = ddlGrupo.SelectedValue,
                     MARCA = ddlMarca.SelectedValue,
-                    UNIDADE_MEDIDA = int.Parse(txtUnidadeMedida.Text),
-                    CUSTO = Utilitarios.FormataValorDecimal(txtCusto.Text),
+                    UNIDADE_MEDIDA = int.Parse(ddlUnidadeMedida.SelectedValue),
+                    //CUSTO = Utilitarios.FormataValorDecimal(txtCusto.Text),
+                    CUSTO = Convert.ToDecimal(txtCusto.Text),
                     //LUCRO_ESPERADO = Utilitarios.FormataValorDecimal(txtLucroEsperado.Text),
-                    PERC_LUCRO = Utilitarios.FormataValorDecimal(txtPercLucro.Text),
-                    PRECO_VENDA = Utilitarios.FormataValorDecimal(txtPrecoVenda.Text),
+                    PERC_LUCRO = Convert.ToDecimal(txtPercLucro.Text),
+                    PRECO_VENDA = Convert.ToDecimal(txtPrecoVenda.Text),
                     CONTROLA_ESTOQUE = Utilitarios.ConverteBoolParaSimNao(!chkControlaEstoque.Checked),
                     ESTOQUE_MININO = int.Parse(txtEstoqueMinimo.Text),
                     ATIVO = Utilitarios.ConverteBoolParaSimNao(!chkStatus.Checked),
@@ -94,7 +96,6 @@ public partial class Paginas_Pessoa_CadProduto : AppBasePage
             }
             else if (_ACAO == "Editar")
             {
-                
                 Response.Cookies["MsgSucesso"].Value = "Produto atualizada com sucesso!";
             }
 
@@ -145,16 +146,16 @@ public partial class Paginas_Pessoa_CadProduto : AppBasePage
                     byte[] dados = new byte[fuFoto.PostedFile.InputStream.Length + 1];
                     fuFoto.PostedFile.InputStream.Read(dados, 0, dados.Length);
 
-                    ArquivoPessoaModel arquivoPessoa = new ArquivoPessoaModel
+                    ArquivoProdutoModel arquivoProduto = new ArquivoProdutoModel
                     {
-                        PESSOA_ID = int.Parse(_ID),
+                        PRODUTO_ID = int.Parse(_ID),
                         NAME = fuFoto.PostedFile.FileName,
                         DATA = DateTime.Now,
                         MIME = fuFoto.PostedFile.ContentType,
                         DADOS = dados
                     };
 
-                    SalvaFoto(arquivoPessoa);
+                    SalvaFoto(arquivoProduto);
                 }
             }
             else
@@ -167,9 +168,9 @@ public partial class Paginas_Pessoa_CadProduto : AppBasePage
 
     protected void btnDeletaFoto_Click(object sender, EventArgs e)
     {
-        PessoaController pessoaController = new PessoaController();
-        PessoaModel pessoa = ConsultaProduto();
-        pessoaController.DeletarImagem(pessoa.PESSOA_ID);
+        ProdutoController produtoController = new ProdutoController();
+        ProdutoModel produto = ConsultaProduto();
+        produtoController.DeletarImagem(produto.PRODUTO_ID);
 
         ConsultaFoto();
     }
@@ -177,15 +178,20 @@ public partial class Paginas_Pessoa_CadProduto : AppBasePage
     #region Metodos
     private void ConfiguraTela()
     {
+        CarregaUnidadesMedidas();
         if (_ACAO == "Editar")
         {
             trImagem.Visible = true;
             tdImagem.Visible = true;
-            arquivosTab.Visible = true;
-            arquivos.Visible = true;
             btnSalvar.Text = "<i class='fas fa-save'></i> Atualizar";
             PreencheCampos();
         }
+    }
+
+    private void CarregaUnidadesMedidas()
+    {
+        DataTable dt = Utilitarios.Pesquisar("SELECT * FROM fcUnidadesMedidas()");
+        Utilitarios.AtualizaDropDown(ddlUnidadeMedida, dt, "NOME", "ID", "Selecione", "0");
     }
 
     private string ValidaCampos()
@@ -212,69 +218,83 @@ public partial class Paginas_Pessoa_CadProduto : AppBasePage
 
     private void PreencheCampos()
     {
-        PessoaController pessoaController = new PessoaController();
-        PessoaModel pessoa = ConsultaProduto();
+        ProdutoController produtoController = new ProdutoController();
+        ProdutoModel produto = ConsultaProduto();
 
-        if (pessoa != null)
+        if (produto != null)
         {
+            txtCodigo.Text = produto.CODIGO;
+            ddlTipo.SelectedValue = produto.TIPO;
+            txtNome.Text = produto.NOME;
+            ddlGrupo.SelectedValue = produto.GRUPO;
+            ddlMarca.SelectedValue = produto.MARCA;
+            ddlUnidadeMedida.SelectedValue = produto.UNIDADE_MEDIDA.ToString();
+            txtCusto.Text = produto.CUSTO.ToString();
+            txtPercLucro.Text = produto.PERC_LUCRO.ToString();
+            txtPrecoVenda.Text = produto.PRECO_VENDA.ToString();
+            chkStatus.Checked = !Utilitarios.ConverteSimNaoParaBool(produto.ATIVO);
+            chkControlaEstoque.Checked = !Utilitarios.ConverteSimNaoParaBool(produto.CONTROLA_ESTOQUE);
+            txtEstoqueMinimo.Text = produto.ESTOQUE_MININO.ToString();
+            txtDataCadastro.Text = produto.SIS_DATA_INSERT.ToString();
+            txtDataAtualizacao.Text = DateTime.Now.ToString("dd/MM/yyyy");
 
             ConsultaFoto();
         }
     }
 
-    private PessoaModel ConsultaProduto()
+    private ProdutoModel ConsultaProduto()
     {
-        PessoaController pessoaController = new PessoaController();
-        List<PessoaModel> pessoas = pessoaController.ConsultarPessoaPorId(_ID);
+        ProdutoController produtoController = new ProdutoController();
+        List<ProdutoModel> produtos = produtoController.ConsultarProdutoPorId(_ID);
 
-        PessoaModel pessoa = pessoas[0];
-        return pessoa;
+        ProdutoModel produto = produtos[0];
+        return produto;
     }
 
     private void ConsultaFoto()
     {
-        PessoaController pessoaController = new PessoaController();
-        PessoaModel pessoa = ConsultaProduto();
-        List<ArquivoPessoaModel> arquivoPessoa = pessoaController.ConsultarArquivoPessoasPorId(pessoa.PESSOA_ID);
+        ProdutoController produtoController = new ProdutoController();
+        ProdutoModel produto = ConsultaProduto();
+        //List<ArquivoProdutoModel> arquivoProduto = ProdutoController.ConsultarArquivoProdutoPorId(produto.PRODUTO_ID);
 
-        if (arquivoPessoa.Count > 0)
-        {
-            imageFoto.Visible = true;
-            imageFoto.ImageUrl = "MostraImagem.aspx?id=" + pessoa.PESSOA_ID;
-            btnDeletaFoto.Visible = true;
-        }
-        else
-        {
-            imageFoto.Visible = false;
-            btnDeletaFoto.Visible = false;
-        }
+        //if (arquivoProduto.Count > 0)
+        //{
+        //    imageFoto.Visible = true;
+        //    imageFoto.ImageUrl = "MostraImagem.aspx?id=" + produto.PRODUTO_ID;
+        //    btnDeletaFoto.Visible = true;
+        //}
+        //else
+        //{
+        //    imageFoto.Visible = false;
+        //    btnDeletaFoto.Visible = false;
+        //}
     }
 
     /// <summary>
     /// Método responsável para upload da foto da pessoa
     /// </summary>
     /// <param name="PESSOA_ID">PESSOA_ID, chave primaria da pessoa cadastrada</param>
-    private void SalvaFoto(ArquivoPessoaModel arquivoPessoa)
+    private void SalvaFoto(ArquivoProdutoModel arquivoProduto)
     {
-        PessoaController pessoaController = new PessoaController();
-        pessoaController.DeletarImagem(arquivoPessoa.PESSOA_ID);
-        pessoaController.SalvarImagem(arquivoPessoa);
+        ProdutoController produtoController = new ProdutoController();
+        produtoController.DeletarImagem(arquivoProduto.PRODUTO_ID);
+        produtoController.SalvarImagem(arquivoProduto);
 
         ConsultaFoto();
     }
 
     private void ExcluirProduto()
     {
-        PessoaController p = new PessoaController();
+        ProdutoController p = new ProdutoController();
 
-        p.ExcluirPessoa(int.Parse(_ID));
+        p.ExcluirProduto(int.Parse(_ID));
         Response.Cookies["Sucesso"].Value = "true";
         Response.Cookies["Sucesso"].Expires = DateTime.Now.AddSeconds(1); // Define o tempo de expiração do cookie
-        Response.Cookies["MsgSucesso"].Value = "Pessoa deletada com sucesso!";
+        Response.Cookies["MsgSucesso"].Value = "Produto deletado com sucesso!";
         Response.Cookies["MsgSucesso"].Expires = DateTime.Now.AddSeconds(1); // Define o tempo de expiração do cookie
 
         // Redireciona para a página de destino
-        Response.Redirect("/Pessoa/ConPessoa");
+        Response.Redirect("/Produto/ConProduto");
     }
 
     #endregion Metodos

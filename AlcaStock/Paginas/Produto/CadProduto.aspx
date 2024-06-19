@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/MasterPages/Cadastro.master" AutoEventWireup="true" CodeFile="CadProduto.aspx.cs" 
-    Inherits="Paginas_Pessoa_CadProduto" Title="Cadastro de Produto" EnableEventValidation="false" %>
+    Inherits="Paginas_Produto_CadProduto" Title="Cadastro de Produto" EnableEventValidation="false" %>
 
 <%@ Register Assembly="AGENDA.Controles" Namespace="AGENDA.Controles.UI.ButtonToolBar" TagPrefix="cc1" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc2" %>
@@ -121,12 +121,6 @@
                 <li class="nav-item" role="presentation">
                     <button class="nav-link active" id="produtoServicoTab" data-toggle="tab" data-target="#produtoServico" type="button" role="tab" aria-controls="produtoServico" aria-selected="true">Produto ou Serviço</button>
                 </li>
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="enderecoTab" data-toggle="tab" data-target="#endereco" type="button" role="tab" aria-controls="endereco" aria-selected="false">Endereço</button>
-                </li>
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="arquivosTab" data-toggle="tab" data-target="#arquivos" type="button" role="tab" aria-controls="arquivos" aria-selected="false" runat="server" visible="false">Documentos Anexados</button>
-                </li>
             </ul>
             <div class="tab-content">
                 <div class="tab-pane fade show active" id="produtoServico" role="tabpanel" aria-labelledby="produtoServicoTab">
@@ -171,7 +165,8 @@
                                             </cc3:FieldDropDown>
                                         </td>
                                         <td class="pdr-10">
-                                            <cc3:FieldTextBox ID="txtUnidadeMedida" runat="server" ValueField="Unid. medida" Width="295px" Style="padding: 5px;" />
+                                            <cc3:FieldDropDown ID="ddlUnidadeMedida" runat="server" ValueField="Unid. medida" style="padding: 4px;" Width="295px" CssClass="input-cadastro" />
+                                            <%--<cc3:FieldTextBox ID="txtUnidadeMedida" runat="server" ValueField="Unid. medida" Width="295px" Style="padding: 5px;" />--%>
                                         </td>
                                     </tr>
                                 </table>
@@ -278,23 +273,6 @@
                                         <td>
                                             <asp:LinkButton ID="btnDeletaFoto" Text="Excluir foto" runat="server" CssClass="btn btn-sm btn-outline-danger btn-pequeno"
                                                 OnClick="btnDeletaFoto_Click"/>
-                                        </td>
-                                    </tr>
-                                </table>
-                            </td>
-                        </tr>
-                    </table>
-                </div>
-                <div class="tab-pane fade" id="endereco" role="tabpanel" aria-labelledby="enderecoTab">teste2</div>
-                <div class="tab-pane fade" id="arquivos" role="tabpanel" aria-labelledby="arquivosTab" runat="server" visible="false">
-                    <br />
-                    <table width="100%">
-                        <tr>
-                            <td>
-                                <table>
-                                    <tr>
-                                        <td>
-                                            <asp:LinkButton ID="btnVisualizaDocs" Text="<i class='fas fa-file-image'></i> Visualizar Documentos" runat="server" CssClass="btn btn-sm btn-secondary btn-pequeno"/>
                                         </td>
                                     </tr>
                                 </table>

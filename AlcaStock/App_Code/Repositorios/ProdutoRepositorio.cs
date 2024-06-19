@@ -2,9 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using Models;
+using Produto.Models;
 
-namespace Alcastock.Repositorios
+namespace Produto.Repositorios
 {
     public class ProdutoRepositorio
     {
@@ -21,7 +21,7 @@ namespace Alcastock.Repositorios
 
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
-                string query = "SELECT * FROM PRODUTOS WHERE 1=1";
+                string query = "SELECT CASE WHEN ATIVO = 'S' THEN 'ATIVO' ELSE 'INATIVO' END AS ATIVO, * FROM PRODUTOS WHERE 1=1";
 
                 if (tipoConsulta == "0")
                     query += " AND NOME LIKE @DESCRICAO";
