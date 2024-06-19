@@ -39,23 +39,23 @@
                                 <table>
                                     <tr>
                                         <td class="pdr-10">
-                                            <cc3:FieldTextBox ID="txt_PESSOAS_CPF_CNPJ" runat="server" ValueField="CPF" Width="300px" Style="padding: 5px;" CssClass="CPF" Obrigatorio="true" />
+                                            <cc3:FieldTextBox ID="txt_PESSOAS_CPF_CNPJ" runat="server" ValueField="CPF" Width="300px" Style="padding: 5px;" CssClass="form-control-pesquisar CPF" Obrigatorio="true" />
                                         </td>
                                         <td class="pdr-10">
                                             <cc3:FieldTextBox ID="txt_PESSOAS_NOME" runat="server" ValueField="Nome Completo" Width="300px" onkeyup="convertToUppercase(event);" 
-                                                CssClass="input-cadastro" Obrigatorio="true" MaxLength="400" />
+                                                CssClass="form-control-pesquisar" Obrigatorio="true" MaxLength="400" />
                                         </td>
                                         <td class="pdr-10">
-                                            <cc3:FieldDropDown ID="ddl_PESSOAS_SEXO" runat="server" ValueField="Sexo" style="padding: 4px;" Width="150px" CssClass="input-cadastro">
-                                                <asp:ListItem Text="Masculino" Value="M" Selected="True" />
+                                            <cc3:FieldDropDown ID="ddl_PESSOAS_SEXO" runat="server" ValueField="Sexo" CssClass="form-control form-control-sm form-control-dropdown">
+                                                <asp:ListItem Text="Masculino" Value="M" />
                                                 <asp:ListItem Text="Feminino" Value="F" />
-                                            </cc3:FieldDropDown>                                
+                                            </cc3:FieldDropDown>
                                         </td>
                                         <td class="pdr-10">
                                             <asp:Label runat="server" Font-Bold="true" CssClass="rotuloObrigatorio">Data Nasc.</asp:Label>
                                             <div class="input-group">
                                                 <cc3:FieldTextBox ID="txt_PESSOAS_DATA_NASC" runat="server"
-                                                    Style="width: 100px;" CssClass="date input-cadastro" MaxLength="10" />
+                                                    Style="width: 100px;" CssClass="date form-control-pesquisar" MaxLength="10" />
                                                 <cc2:CalendarExtender ID="CalendarExtender1" runat="server" TargetControlID="txt_PESSOAS_DATA_NASC"
                                                     PopupButtonID="ImageButton1" Animated="true" Format="dd/MM/yyyy" />
                                                 <div class="input-group-append">
@@ -79,24 +79,10 @@
                                     <tr>
                                         <td class="pdr-10">
                                             <cc3:FieldTextBox ID="txt_PESSOAS_NOME_MAE" runat="server" ValueField="Nome Mãe" Width="300px" onkeyup="convertToUppercase(event);" 
-                                                CssClass="input-cadastro" Obrigatorio="true" MaxLength="400" />
+                                                CssClass="form-control-pesquisar" Obrigatorio="true" MaxLength="400" />
                                         </td>
                                         <td class="pdr-10">
-                                            <cc3:FieldTextBox ID="txt_PESSOAS_CPF_MAE" runat="server" ValueField="CPF Mãe" Width="300px" Style="padding: 5px;" CssClass="CPF" Obrigatorio="true" />
-                                        </td>
-                                    </tr>
-                                </table>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <table>
-                                    <tr>
-                                        <td class="pdr-10">
-                                            <cc3:FieldTextBox ID="txt_PESSOAS_NOME_PAI" runat="server" ValueField="Nome Pai" Width="300px" onkeyup="convertToUppercase(event);" CssClass="input-cadastro" MaxLength="400" />
-                                        </td>
-                                        <td class="pdr-10">
-                                            <cc3:FieldTextBox ID="txt_PESSOAS_CPF_PAI" runat="server" ValueField="CPF Pai" Width="300px" Style="padding: 5px;" CssClass="CPF" />
+                                            <cc3:FieldTextBox ID="txt_PESSOAS_CPF_MAE" runat="server" ValueField="CPF Mãe" Width="300px" Style="padding: 5px;" CssClass="form-control-pesquisar CPF" Obrigatorio="true" />
                                         </td>
                                     </tr>
                                 </table>
@@ -107,11 +93,25 @@
                                 <table>
                                     <tr>
                                         <td class="pdr-10">
-                                            <cc3:FieldTextBox ID="txt_PESSOAS_TELEFONE_RESIDENCIAL" runat="server" ValueField="Telefone Residencial" Width="300px" CssClass="   input-cadastro"
+                                            <cc3:FieldTextBox ID="txt_PESSOAS_NOME_PAI" runat="server" ValueField="Nome Pai" Width="300px" onkeyup="convertToUppercase(event);" CssClass="form-control-pesquisar" MaxLength="400" />
+                                        </td>
+                                        <td class="pdr-10">
+                                            <cc3:FieldTextBox ID="txt_PESSOAS_CPF_PAI" runat="server" ValueField="CPF Pai" Width="300px" Style="padding: 5px;" CssClass="form-control-pesquisar CPF" />
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <table>
+                                    <tr>
+                                        <td class="pdr-10">
+                                            <cc3:FieldTextBox ID="txt_PESSOAS_TELEFONE_RESIDENCIAL" runat="server" ValueField="Telefone Residencial" Width="300px" CssClass="form-control-pesquisar"
                                                 oninput="maskPhone(event)" maxlength="16" />
                                         </td>
                                         <td class="pdr-10">
-                                            <cc3:FieldTextBox ID="txt_PESSOAS_TELEFONE_CELULAR" runat="server" ValueField="Telefone Celular" Width="300px" CssClass="input-cadastro" 
+                                            <cc3:FieldTextBox ID="txt_PESSOAS_TELEFONE_CELULAR" runat="server" ValueField="Telefone Celular" Width="300px" CssClass="form-control-pesquisar" 
                                                 oninput="maskPhone(event)" maxlength="16" Obrigatorio="true" />
                                         </td>
                                     </tr>
@@ -123,7 +123,7 @@
                                 <table>
                                     <tr>
                                         <td class="pdr-10">
-                                            <cc3:FieldTextBox ID="txt_PESSOAS_EMAIL" runat="server" ValueField="E-mail" Width="300px" CssClass="input-cadastro" MaxLength="400" />
+                                            <cc3:FieldTextBox ID="txt_PESSOAS_EMAIL" runat="server" ValueField="E-mail" Width="300px" CssClass="form-control-pesquisar" MaxLength="400" />
                                         </td>                            
                                     </tr>
                                 </table>

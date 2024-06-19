@@ -8,8 +8,6 @@
     <head id="Head1" runat="server">
         <title>ALCASTOCK - Sistema de Gerenciamento de Estoque</title>
         
-        <meta charset="UTF-8">
-
         <link href="../Estilos/estilo_padrao.css" type="text/css" rel="stylesheet" />
         <link rel="stylesheet" href="../Library/css/site.css" asp-append-version="true" />
         <link rel="stylesheet" href="../Library/lib/fontawesome-free/css/all.min.css" />
@@ -54,7 +52,6 @@
                         if (!(str.match('Parametro/Parametro.aspx'))) {
                             document.getElementById('ctl00_ContentCampos_TabContainer1_body').style.height = String(altura) + 'px';
                         }
-                        //alert(String(self.innerHeight-225) + 'px');
                     }
                 }
             }
@@ -179,7 +176,7 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js" type="text/javascript"></script>
         <script src="../Library/js/site.js" asp-append-version="true" type="text/javascript"></script>
 
-        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js" type="text/javascript"></script>
+        <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.min.js" type="text/javascript"></script>
         <script type="text/javascript">
             $(document).ready(function () {
                 $(".date").datepicker({

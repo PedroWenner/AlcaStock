@@ -11,9 +11,15 @@
             <table>
                 <tr>
                     <td valign="bottom">
-                        <cc1:FieldDropDown ID="ddlPSQ" runat="server" CssClass="btn btn-sm btn-secondary btn-pesquisar" ValueField="Pesquisar por">
-                            <asp:ListItem Value="0">Nome</asp:ListItem>
-                        </cc1:FieldDropDown>
+                        <div style="width:150px;">
+                            <cc1:FieldDropDown ID="ddlPSQ" runat="server" ValueField="Pesquisar por" CssClass="form-control form-control-sm form-control-dropdown">
+                                <asp:ListItem Value="0">Nome</asp:ListItem>
+                                <asp:ListItem Value="1">Outro</asp:ListItem>
+                            </cc1:FieldDropDown>
+                        </div>
+                    </td>
+                    <td valign="bottom">
+                        
                     </td>
                     <td valign="bottom">
                         <label class="rotuloCaixaPesquisar">Descrição</label>
@@ -64,7 +70,8 @@
                     <asp:BoundColumn DataField="CODIGO" HeaderText="Código" />
                     <asp:BoundColumn DataField="TIPO" HeaderText="Tipo" />
                     <asp:BoundColumn DataField="NOME" HeaderText="Descrição" />
-                    <asp:BoundColumn DataField="MARCA" HeaderText="Marca" />
+                    <asp:BoundColumn DataField="NOME_MARCA" HeaderText="Marca" />
+                    <asp:BoundColumn DataField="CUSTO" HeaderText="Preço de Custo" DataFormatString="{0:N2}" />
                     <%--<asp:BoundColumn DataField="ESTOQUE_ATUAL" HeaderText="Estoque atual" />--%>
                     <asp:BoundColumn DataField="ATIVO" HeaderText="Status" />
                     <asp:BoundColumn DataField="SIS_DATA_INSERT" HeaderText="Data Cadastro" DataFormatString="{0:dd/MM/yyyy}" />

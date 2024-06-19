@@ -9,8 +9,10 @@ namespace Produto.Models
         private string _CODIGO;
         private string _TIPO;
         private string _NOME;
-        private string _GRUPO;
-        private string _MARCA;
+        private string _NOME_UNIDADE_MEDIDA;
+        private string _NOME_MARCA;
+        private int? _GRUPO;
+        private int? _MARCA;
         private int? _UNIDADE_MEDIDA;
         private decimal _CUSTO;
         private decimal _LUCRO_ESPERADO;
@@ -46,12 +48,22 @@ namespace Produto.Models
             get { return _NOME; }
             set { _NOME = value; }
         }
-        public string GRUPO
+        public string NOME_UNIDADE_MEDIDA
+        {
+            get { return _NOME_UNIDADE_MEDIDA; }
+            set { _NOME_UNIDADE_MEDIDA = value; }
+        }
+        public string NOME_MARCA
+        {
+            get { return _NOME_MARCA; }
+            set { _NOME_MARCA = value; }
+        }
+        public int? GRUPO
         {
             get { return _GRUPO; }
             set { _GRUPO = value; }
         }
-        public string MARCA
+        public int? MARCA
         {
             get { return _MARCA; }
             set { _MARCA = value; }

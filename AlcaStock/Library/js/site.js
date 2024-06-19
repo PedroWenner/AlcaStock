@@ -29,3 +29,32 @@ function formatarCPF(input) {
     // Atualiza o valor do campo
     input.value = cpf;
 }
+
+$(document).ready(function () {
+    function initializeAutocomplete() {
+        $('.autocomplete-dropdown').each(function () {
+            var dropdown = $(this);
+            var availableTags = [];
+
+            // Preencher o array com os itens do dropdown
+            dropdown.find('option').each(function () {
+                availableTags.push($(this).text());
+            });
+
+            var autocompleteInput = dropdown.closest('td').next('td').find('.autocomplete-input');
+
+            autocompleteInput.autocomplete({
+                source: availableTags,
+                select: function (event, ui) {
+                    // Atualizar o valor do dropdown quando uma seleção é feita no autocomplete
+                    dropdown.val(dropdown.find('option').filter(function () {
+                        return $(this).text() === ui.item.value;
+                    }).val());
+                }
+            });
+        });
+    }
+
+    initializeAutocomplete();
+    Sys.WebForms.PageRequestManager.getInstance().add_endRequest(initializeAutocomplete);
+});

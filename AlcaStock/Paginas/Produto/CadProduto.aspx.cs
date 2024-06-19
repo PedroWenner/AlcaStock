@@ -12,6 +12,7 @@ using AlcaStock.Attributes;
 using System.Xml.Linq;
 using System.IO;
 using System.Data;
+using Models;
 
 public partial class Paginas_Produto_CadProduto : AppBasePage
 {
@@ -62,27 +63,23 @@ public partial class Paginas_Produto_CadProduto : AppBasePage
     /// <param name="e"></param>
     protected void btnSalvar_Click(object sender, EventArgs e)
     {
+        ProdutoController produtoController = new ProdutoController();
         string erro = ValidaCampos();
 
         if (string.IsNullOrWhiteSpace(erro))
         {
             if (_ACAO == "Novo")
             {
-                ProdutoController produtoController = new ProdutoController();
-
                 ProdutoModel produto = new ProdutoModel
                 {
                     CODIGO = txtCodigo.Text,
                     TIPO = ddlTipo.SelectedValue,
                     NOME = txtNome.Text,
-                    GRUPO = ddlGrupo.SelectedValue,
-                    MARCA = ddlMarca.SelectedValue,
+                    MARCA = int.Parse(ddlMarca.SelectedValue),
                     UNIDADE_MEDIDA = int.Parse(ddlUnidadeMedida.SelectedValue),
-                    //CUSTO = Utilitarios.FormataValorDecimal(txtCusto.Text),
                     CUSTO = Convert.ToDecimal(txtCusto.Text),
-                    //LUCRO_ESPERADO = Utilitarios.FormataValorDecimal(txtLucroEsperado.Text),
                     PERC_LUCRO = Convert.ToDecimal(txtPercLucro.Text),
-                    PRECO_VENDA = Convert.ToDecimal(txtPrecoVenda.Text),
+                    PRECO_VENDA = Convert.ToDecimal(hdnPrecoVenda.Value),
                     CONTROLA_ESTOQUE = Utilitarios.ConverteBoolParaSimNao(!chkControlaEstoque.Checked),
                     ESTOQUE_MININO = int.Parse(txtEstoqueMinimo.Text),
                     ATIVO = Utilitarios.ConverteBoolParaSimNao(!chkStatus.Checked),
@@ -96,7 +93,25 @@ public partial class Paginas_Produto_CadProduto : AppBasePage
             }
             else if (_ACAO == "Editar")
             {
-                Response.Cookies["MsgSucesso"].Value = "Produto atualizada com sucesso!";
+                ProdutoModel produto = new ProdutoModel
+                {
+                    CODIGO = txtCodigo.Text,
+                    TIPO = ddlTipo.SelectedValue,
+                    NOME = txtNome.Text,
+                    MARCA = int.Parse(ddlMarca.SelectedValue),
+                    UNIDADE_MEDIDA = int.Parse(ddlUnidadeMedida.SelectedValue),
+                    CUSTO = Convert.ToDecimal(txtCusto.Text),
+                    PERC_LUCRO = Convert.ToDecimal(txtPercLucro.Text),
+                    PRECO_VENDA = Convert.ToDecimal(hdnPrecoVenda.Value),
+                    CONTROLA_ESTOQUE = Utilitarios.ConverteBoolParaSimNao(!chkControlaEstoque.Checked),
+                    ESTOQUE_MININO = int.Parse(txtEstoqueMinimo.Text),
+                    ATIVO = Utilitarios.ConverteBoolParaSimNao(!chkStatus.Checked),
+                    SIS_USUARIO_UPDATE = "Pedro Wenner",
+                    SIS_DATA_UPDATE = DateTime.Now
+                };
+
+                produtoController.AtualizarProduto(int.Parse(_ID), produto);
+                Response.Cookies["MsgSucesso"].Value = "Produto atualizado com sucesso!";
             }
 
             // Após o salvamento bem-sucedido, define um cookie para indicar que o modal deve ser exibido
@@ -178,11 +193,14 @@ public partial class Paginas_Produto_CadProduto : AppBasePage
     #region Metodos
     private void ConfiguraTela()
     {
+        txtCodigo.Text = Utilitarios.MaxID("CODIGO", "PRODUTOS").ToString();
         CarregaUnidadesMedidas();
+        CarregaMarcas();
+
         if (_ACAO == "Editar")
         {
-            trImagem.Visible = true;
-            tdImagem.Visible = true;
+            //trImagem.Visible = true;
+            //tdImagem.Visible = true;
             btnSalvar.Text = "<i class='fas fa-save'></i> Atualizar";
             PreencheCampos();
         }
@@ -191,7 +209,13 @@ public partial class Paginas_Produto_CadProduto : AppBasePage
     private void CarregaUnidadesMedidas()
     {
         DataTable dt = Utilitarios.Pesquisar("SELECT * FROM fcUnidadesMedidas()");
-        Utilitarios.AtualizaDropDown(ddlUnidadeMedida, dt, "NOME", "ID", "Selecione", "0");
+        Utilitarios.AtualizaDropDown(ddlUnidadeMedida, dt, "NOME", "ID", "SELECIONE", "0");
+    }
+
+    private void CarregaMarcas()
+    {
+        DataTable dt = Utilitarios.Pesquisar("SELECT * FROM MARCAS");
+        Utilitarios.AtualizaDropDown(ddlMarca, dt, "NOME", "ID", "SELECIONE", "0");
     }
 
     private string ValidaCampos()
@@ -226,12 +250,12 @@ public partial class Paginas_Produto_CadProduto : AppBasePage
             txtCodigo.Text = produto.CODIGO;
             ddlTipo.SelectedValue = produto.TIPO;
             txtNome.Text = produto.NOME;
-            ddlGrupo.SelectedValue = produto.GRUPO;
-            ddlMarca.SelectedValue = produto.MARCA;
+            ddlMarca.SelectedValue = produto.MARCA.ToString();
             ddlUnidadeMedida.SelectedValue = produto.UNIDADE_MEDIDA.ToString();
             txtCusto.Text = produto.CUSTO.ToString();
             txtPercLucro.Text = produto.PERC_LUCRO.ToString();
             txtPrecoVenda.Text = produto.PRECO_VENDA.ToString();
+            hdnPrecoVenda.Value = produto.PRECO_VENDA.ToString();
             chkStatus.Checked = !Utilitarios.ConverteSimNaoParaBool(produto.ATIVO);
             chkControlaEstoque.Checked = !Utilitarios.ConverteSimNaoParaBool(produto.CONTROLA_ESTOQUE);
             txtEstoqueMinimo.Text = produto.ESTOQUE_MININO.ToString();

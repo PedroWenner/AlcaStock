@@ -21,10 +21,20 @@ namespace Produto.Repositorios
 
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
-                string query = "SELECT CASE WHEN ATIVO = 'S' THEN 'ATIVO' ELSE 'INATIVO' END AS ATIVO, * FROM PRODUTOS WHERE 1=1";
+                string query = @"
+                    SELECT
+	                    CASE WHEN ATIVO = 'S' THEN 'ATIVO' ELSE 'INATIVO' END AS ATIVO,
+	                    CASE WHEN TIPO = 1 THEN 'PRODUTO' ELSE 'SERVIÇO' END AS TIPO,
+	                    M.NOME AS NOME_MARCA,
+	                    UM.NOME AS NOME_UNIDADE_MEDIDA,
+	                    *
+                    FROM PRODUTOS P
+                    JOIN MARCAS M ON M.ID = P.MARCA
+                    JOIN fcUnidadesMedidas() UM ON UM.ID = P.UNIDADE_MEDIDA
+                    WHERE 1=1";
 
                 if (tipoConsulta == "0")
-                    query += " AND NOME LIKE @DESCRICAO";
+                    query += " AND P.NOME LIKE @DESCRICAO";
 
                 SqlCommand cmd = new SqlCommand(query, connection);
                 cmd.Parameters.AddWithValue("@DESCRICAO", "%" + descricao + "%");
@@ -40,19 +50,14 @@ namespace Produto.Repositorios
                         , CODIGO = reader["CODIGO"].ToString()
                         , TIPO = reader["TIPO"].ToString()
                         , NOME = reader["NOME"].ToString()
-                        , GRUPO = reader["GRUPO"].ToString()
-                        , MARCA = reader["MARCA"].ToString()
-                        , UNIDADE_MEDIDA = int.Parse(reader["UNIDADE_MEDIDA"].ToString())
+                        , NOME_MARCA = reader["NOME_MARCA"].ToString()
+                        , NOME_UNIDADE_MEDIDA = reader["NOME_UNIDADE_MEDIDA"].ToString()
                         , CUSTO = Convert.ToDecimal(reader["CUSTO"].ToString())
-                        //LUCRO_ESPERADO = Convert.ToDecimal(reader["LUCRO_ESPERADO"].ToString()),
                         , PERC_LUCRO = Convert.ToDecimal(reader["PERC_LUCRO"].ToString())
-                        //PRECO_VENDA = Convert.ToDecimal(reader["PRECO_VENDA"].ToString()),
                         , CONTROLA_ESTOQUE = reader["CONTROLA_ESTOQUE"].ToString()
                         , ESTOQUE_MININO = int.Parse(reader["ESTOQUE_MININO"].ToString())
-                        //ESTOQUE_ATUAL = int.Parse(reader["ESTOQUE_ATUAL"].ToString()),
                         , ATIVO = reader["ATIVO"].ToString()
                         , SIS_DATA_INSERT = Convert.ToDateTime(reader["SIS_DATA_INSERT"])
-                        //, SIS_DATA_UPDATE = Convert.ToDateTime(reader["SIS_DATA_UPDATE"])
                     };
 
                     produtos.Add(produto);
@@ -84,19 +89,15 @@ namespace Produto.Repositorios
                         , CODIGO = reader["CODIGO"].ToString()
                         , TIPO = reader["TIPO"].ToString()
                         , NOME = reader["NOME"].ToString()
-                        , GRUPO = reader["GRUPO"].ToString()
-                        , MARCA = reader["MARCA"].ToString()
+                        , MARCA = int.Parse(reader["MARCA"].ToString())
                         , UNIDADE_MEDIDA = int.Parse(reader["UNIDADE_MEDIDA"].ToString())
                         , CUSTO = Convert.ToDecimal(reader["CUSTO"].ToString())
-                        //LUCRO_ESPERADO = Convert.ToDecimal(reader["LUCRO_ESPERADO"].ToString()),
                         , PERC_LUCRO = Convert.ToDecimal(reader["PERC_LUCRO"].ToString())
-                        //PRECO_VENDA = Convert.ToDecimal(reader["PRECO_VENDA"].ToString()),
+                        , PRECO_VENDA = Convert.ToDecimal(reader["PRECO_VENDA"].ToString())
                         , CONTROLA_ESTOQUE = reader["CONTROLA_ESTOQUE"].ToString()
                         , ESTOQUE_MININO = int.Parse(reader["ESTOQUE_MININO"].ToString())
-                        //ESTOQUE_ATUAL = int.Parse(reader["ESTOQUE_ATUAL"].ToString()),
                         , ATIVO = reader["ATIVO"].ToString()
                         , SIS_DATA_INSERT = Convert.ToDateTime(reader["SIS_DATA_INSERT"])
-                        //, SIS_DATA_UPDATE = Convert.ToDateTime(reader["SIS_DATA_UPDATE"])
                     };
 
                     produtos.Add(produto);
@@ -114,9 +115,9 @@ namespace Produto.Repositorios
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
-                string query = @"SET DATEFORMAT DMY; INSERT INTO PRODUTOS (CODIGO, TIPO, NOME, GRUPO, MARCA, UNIDADE_MEDIDA, CUSTO
+                string query = @"SET DATEFORMAT DMY; INSERT INTO PRODUTOS (CODIGO, TIPO, NOME, /*GRUPO,*/ MARCA, UNIDADE_MEDIDA, CUSTO
                                 , PERC_LUCRO, PRECO_VENDA, CONTROLA_ESTOQUE, ESTOQUE_MININO, ATIVO, SIS_USER_INSERT, SIS_DATA_INSERT)
-                                VALUES (@CODIGO, @TIPO, @NOME, @GRUPO, @MARCA, @UNIDADE_MEDIDA, @CUSTO, @PERC_LUCRO, @PRECO_VENDA, @CONTROLA_ESTOQUE,
+                                VALUES (@CODIGO, @TIPO, @NOME, /*@GRUPO,*/ @MARCA, @UNIDADE_MEDIDA, @CUSTO, @PERC_LUCRO, @PRECO_VENDA, @CONTROLA_ESTOQUE,
                                 @ESTOQUE_MININO, @ATIVO, @SIS_USER_INSERT, @SIS_DATA_INSERT)";
 
                 SqlCommand cmd = new SqlCommand(query, connection);
@@ -136,16 +137,26 @@ namespace Produto.Repositorios
         /// </summary>
         /// <param name="pessoaId">id do produto</param>
         /// <param name="produto">Model PRODUTOS</param>
-        public void Atualizar(int produtoId, ProdutoModel produto)
+        public void AtualizarProduto(int produtoId, ProdutoModel produto)
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
                 string query = @"
                     SET DATEFORMAT DMY;
-                    UPDATE PESSOAS
-                    SET NOME = @NOME, CPF = @CPF, DATA_NASC = @DATA_NASC, SEXO = @SEXO, NOME_MAE = @NOME_MAE,
-                    CPF_MAE = @CPF_MAE, NOME_PAI = @NOME_PAI, CPF_PAI = @CPF_PAI, TELEFONE_RESIDENCIAL = @TELEFONE_RESIDENCIAL,
-                    TELEFONE_CELULAR = @TELEFONE_CELULAR, EMAIL = @EMAIL, SIS_USUARIO_UPDATE = @SIS_USUARIO_UPDATE, SIS_DATA_UPDATE = @SIS_DATA_UPDATE
+                    UPDATE PRODUTOS
+                    SET CODIGO = @CODIGO
+                        , TIPO = @TIPO
+                        , NOME = @NOME
+                        , MARCA = @MARCA
+                        , UNIDADE_MEDIDA = @UNIDADE_MEDIDA
+                        , CUSTO = @CUSTO
+                        , PERC_LUCRO = @PERC_LUCRO
+                        , PRECO_VENDA = @PRECO_VENDA
+                        , CONTROLA_ESTOQUE = @CONTROLA_ESTOQUE
+                        , ESTOQUE_MININO = @ESTOQUE_MININO
+                        , ATIVO = @ATIVO
+                        , SIS_USER_UPDATE = @SIS_USUARIO_UPDATE
+                        , SIS_DATA_UPDATE = @SIS_DATA_UPDATE
                     WHERE PRODUTO_ID = @PRODUTO_ID";
 
                 SqlCommand cmd = new SqlCommand(query, connection);

@@ -238,6 +238,58 @@ public class Utilitarios
 
     #region Metodos
 
+    /// <summary>
+    /// Método que retorna o último código da tabela, adicionando mais um
+    /// </summary>
+    /// <param name="pk">Variável que armazena a chave primária da tabela</param>
+    /// <param name="tabela">Variável que armazena a tabela onde a pesquisa será realizada</param>
+    /// <returns>Retorna o último código da tabela adicionando mais 1</returns>
+    public static int MaxID(string pk, string tabela)
+    {
+        //-> Variável que será retornada
+        int mx;
+        //-> Cria um objeto de conexão com o Banco de Dados
+        SqlConnection cnx = GetOpenConnection();
+        //-> Cria o objeto de comando
+        SqlCommand cmd = new SqlCommand("SELECT COALESCE(MAX(" + pk + "), 0) + 1 AS MAX FROM " + tabela, cnx);
+        //
+        try
+        {
+            //-> Cria o objeto DataReader recebendo a leitura da consulta realizada
+            SqlDataReader dr = cmd.ExecuteReader();
+            try
+            {
+                //-> Realiza a leitura da consulta realizada
+                dr.Read();
+                //-> Verifica se o retorno foi nulo(primeiro registro a ser inserido na tabela)
+                if (!dr.IsDBNull(0))
+                {
+                    //-> Passa para a variável o valor encontrado
+                    mx = dr.GetInt32(0);
+                }
+                else
+                {
+                    //-> Seta o valor 1 para a variável
+                    mx = 1;
+                }
+            }
+            finally
+            {
+                //-> Fecha o DataReader e tira o comando da memória
+                dr.Close();
+                cmd.Dispose();
+            }
+        }
+        finally
+        {
+            //-> Fecha a conexão
+            cnx.Close();
+            cmd.Dispose();
+            cnx.Dispose();
+        }
+        //-> Retorna a variável com o valor máximo de ID
+        return mx;
+    }
     public static decimal FormataValorDecimal(string valor)
     {
         if (valor == string.Empty)

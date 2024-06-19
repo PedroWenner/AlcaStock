@@ -15,8 +15,8 @@
             <table>
                 <tr>
                     <td valign="bottom">
-                        <cc1:FieldDropDown ID="ddlPSQ" runat="server" CssClass="btn btn-sm btn-secondary btn-pesquisar" ValueField="Pesquisar por"
-                            OnSelectedIndexChanged="ddlPSQ_SelectedIndexChanged" AutoPostBack="true">
+                        <cc1:FieldDropDown ID="ddlPSQ" runat="server" ValueField="Pesquisar por" CssClass="form-control form-control-sm form-control-dropdown"
+                            OnSelectedIndexChanged="ddlPSQ_SelectedIndexChanged" AutoPostBack="true" Width="150px">
                             <asp:ListItem Value="0">Nome</asp:ListItem>
                             <asp:ListItem Value="1">CPF</asp:ListItem>
                         </cc1:FieldDropDown>

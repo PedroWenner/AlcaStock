@@ -76,7 +76,7 @@ namespace Produto.Repositorios
                 string query = @"DELETE ARQUIVOS_PRODUTOS WHERE PRODUTO_ID = @PRODUTO_ID";
 
                 SqlCommand cmd = new SqlCommand(query, connection);
-                cmd.Parameters.AddWithValue("@PESSOA_ID", produtoId);
+                cmd.Parameters.AddWithValue("@PRODUTO_ID", produtoId);
 
                 connection.Open();
                 cmd.ExecuteNonQuery();

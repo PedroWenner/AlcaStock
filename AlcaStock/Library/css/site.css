@@ -7,6 +7,7 @@
     font-weight: bold;
     margin-bottom: 0;
 }
+
 .rotulo-tabela {
     font-family: Nunito,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
     font-size: 14px;
@@ -16,6 +17,7 @@
     padding-top: 5px;
     padding-bottom: 5px;
 }
+
 .topo-tabela {
     width: 100%;
     height: auto;
@@ -28,6 +30,7 @@
     text-align: center;
     background-color: #203a87;
 }
+
 .topo-toolbar {
     width: 100%;
     height: 100px;
@@ -38,6 +41,7 @@
     text-align: left;
     background-image: linear-gradient(180deg, rgb(208 209 212)10%, #f1f1f1 100%);
 }
+
 .btn-novo {
     border: 1px transparent !important;
     margin-top: 5px;
@@ -45,7 +49,8 @@
     margin-left: 0px;
     font-size: 0.8rem !important;
 }
-.btn-pesquisar {
+
+/*.btn-pesquisar {
     border-radius: 3px!important;
     margin-right: 5px;
     font-size: 1em !important;
@@ -57,7 +62,64 @@
 .btn-pesquisar:hover {
     background-color: #dddddd !important;
     color: #000 !important;
+}*/
+
+.btn-pesquisar {
+    position: relative;
+    font-family: Arial;
 }
+
+.btn-pesquisar select {
+    display: none; /*hide original SELECT element:*/
+}
+
+/*.select-selected {
+    background-color: #fdfdfd;
+}
+
+.select-selected:after {
+    position: absolute;
+    content: "";
+    top: 28px;
+    right: 10px;
+    width: 0;
+    height: 0;
+    border: 6px solid transparent;
+    border-color: #000 transparent transparent transparent;
+}
+
+.select-selected.select-arrow-active:after {
+    border-color: transparent transparent #000 transparent;
+    top: 20px;
+}
+
+.select-items div, .select-selected {
+    color: #000;
+    padding: 5px 16px;
+    border: 1px solid transparent;
+    border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    user-select: none;
+    border-radius: 5px;
+}
+
+.select-items {
+    position: absolute;
+    background-color: #fdfdfd;
+    top: 100%;
+    left: 0;
+    right: 0;
+    z-index: 99;
+}
+
+.select-hide {
+    display: none;
+}
+
+.select-items div:hover, .same-as-selected {
+    background-color: rgba(0, 0, 0, 0.1);
+}*/
+
 .btn-consultar {
     /*background: rgb(130,130,231);
     background: linear-gradient(10deg, rgba(130,130,231,1) 0%, rgba(67,67,185,1) 52%, rgba(83,83,245,1) 77%, rgba(56,56,247,1) 100%);
@@ -75,47 +137,58 @@
     padding: 2px 5px 2px 5px;
     border: 1px solid #999999;
 }
+
 .btn-consultar:hover {
     background: #EEEEEE;
     box-shadow: 0px 0px 2px rgba(0,0,0,0.4);
     -moz-box-shadow: 0px 0px 2px rgba(0,0,0,0.4);
     -webkit-box-shadow: 0px 0px 2px rgba(0,0,0,0.4);
 }
+
 .grdResultados {
     width: 100%;
     height: 600px;
     /*margin-left: 10%;*/
 }
+
 .grdResultados-tabela {
     color: #4c4c4e !important;
 }
+
 .grdResultados-tabela thead {
     font-family: Nunito,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
     font-size: 14px;
     background-color: #f1f1f1;
 }
+
 .grdResultados-tabela thead th {
     padding: 2.5px;
 }
+
 .grdResultados-tabela tbody tr {
     font-family: Nunito,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";   
     font-size: 14px;
 }
+
 .grdResultados-tabela tbody tr:hover {
     font-family: Nunito,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
     color: #fff;
     font-size: 14px;
     background-image: linear-gradient(180deg, #6984d3 10%, rgb(78, 115, 223) 100%);
 }
+
 .grdResultados-tabela tbody td {
     padding: 2.5px;
 }
+
 .grdResultados-tabela tbody td:hover {
     cursor: default;
 }
+
 .grdResultados-tabela tbody td a {
     color: #4c4c4e !important;
 }
+
 .topo-cadastro {
     width: 100%;
     height: 40px;
@@ -125,6 +198,7 @@
     border-top-left-radius: 15px;
     border-top-right-radius: 15px;
 }
+
 .rotulo-top-cadastro {
     font-family: Nunito,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
     font-size: 14px;
@@ -134,14 +208,17 @@
     margin-top: 10px;
     margin-left: 10px;
 }
+
 .body-cadastro {
     width: 100%;
     height: 500px;
     border: 1px solid #203a87;
 }
+
 .input-cadastro {
-    padding: 5px!important;
+    padding: 5px !important;
 }
+
 .form-pesquisa {
     border: 1px solid #01154f !important;
     height: 20px !important;
@@ -188,6 +265,7 @@
     border-bottom-left-radius: 15px;
     border-bottom-right-radius: 15px;
 }
+
 /*ALTERA��ES CLASSES BOOTSTRAP*/
 /*.input-group-text {
     border-radius: 0 !important;
@@ -196,64 +274,78 @@
     border-left: none !important;
     height: 25px !important;
 }*/
+
 .modal-header {
     padding: 0.5rem 0.5rem!important;
 }
+
 .modal-header .btn-close {
     margin-top: 0.1px;
 }
+
 .btn-close {
     border: none;
     background: none;
 }
+
 .input-group-icone
 {
     background: none!important;
     border: none!important;
     height: 20px!important;
 }
+
 /* Estilo para o tamanho do datepicker */
 .ui-datepicker {
     font-size: 8px; /* Ajuste o tamanho da fonte conforme necess�rio */
 }
+
 /* Estilo para os bot�es Anterior e Pr�ximo */
 .ui-datepicker-prev, .ui-datepicker-next {
     font-size: 8px; /* Ajuste o tamanho da fonte conforme necess�rio */
     padding: 0px; /* Ajuste o espa�amento interno conforme necess�rio */
 }
+
 /* Estilo para as datas */
 .ui-datepicker-calendar td a {
     font-size: 8px; /* Ajuste o tamanho da fonte das datas conforme necess�rio */
     padding: 0px 2px; /* Ajuste o espa�amento interno conforme necess�rio */
 }
+
 /* Estilo para o cabe�alho do m�s e ano */
 .ui-datepicker-title {
     font-size: 10px; /* Ajuste o tamanho da fonte do cabe�alho conforme necess�rio */
     padding: 0px; /* Ajuste o espa�amento interno conforme necess�rio */
 }
+
 /* Estilo para o bot�o "Hoje" */
 .ui-datepicker-current {
     font-size: 8px; /* Ajuste o tamanho da fonte do bot�o "Hoje" conforme necess�rio */
     padding: 0px; /* Ajuste o espa�amento interno conforme necess�rio */
 }
+
 /* Estilo para o hover sobre as datas */
 .ui-datepicker-calendar td a:hover {
     background-color: #ff6600;
     color: #000;
 }
+
 /* Estilo para o tamanho das iniciais da semana */
 .ui-datepicker th {
     padding: 0 !important;
     font-size: 8px;
 }
+
 /* Estilo para o tamanho do datepicker */
 .ui-widget
 {
     font-size: 0.8em!important;
 }
+
 .text-danger {
     font-size: 12px;
 }
+
 .pagination a {
     margin: 0 5px;
     border-radius: 50%;
@@ -263,6 +355,7 @@
     width: 35px;
     height: 35px;
 }
+
 .pagination a:first-child {
     margin: 0 5px;
     border-radius: 50%!important;
@@ -271,22 +364,27 @@
     width: 35px;
     height: 35px;
 }
+
 .page-item.active .page-link {
     z-index: 3;
     color: #fff;
     background-color: #203a87!important;
 }
+
 .page-link:focus {
     z-index: 3;
     outline: 0;
     box-shadow: none!important;
 }
+
 .ui-state-active {
     color: black !important;
 }
+
 .input-group-prepend {
     height: 20px!important;
 }
+
 .qty .count {
     color: #000;
     display: inline-block;
@@ -404,6 +502,15 @@ input:disabled {
     margin-right: 5px;
     font-size: 13px !important;
     color: black !important;
+    padding: 13px .5rem!important;
+}
+
+.form-control-dropdown {
+    border-radius: 3px !important;
+    margin-right: 5px;
+    font-size: 13px !important;
+    color: black !important;
+    padding: 4px .5rem !important;
 }
 
 .btn-pequeno {
@@ -455,9 +562,9 @@ input:disabled {
     overflow: hidden;
 }
 
-    .botao1.radius, .botao1.radius .off {
-        border-radius: 5px;
-    }
+.botao1.radius, .botao1.radius .off {
+    border-radius: 5px;
+}
 
 .checkbox {
     position: relative;

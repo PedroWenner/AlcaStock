@@ -42,7 +42,10 @@ public partial class Paginas_Pessoa_ConProduto : AppBasePage
     {
         if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
         {
-            e.Item.CssClass = "data-row";
+            if (e.Item.Cells[8].Text == "INATIVO")
+                e.Item.CssClass = "table-danger";
+            else
+                e.Item.CssClass = "data-row";
         }
     }
 

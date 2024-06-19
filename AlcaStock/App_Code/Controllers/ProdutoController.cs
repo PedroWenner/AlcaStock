@@ -1,6 +1,7 @@
 using Produto.Repositorios;
 using Produto.Models;
 using System.Collections.Generic;
+using Models;
 
 namespace Alcastock.Controllers
 {
@@ -29,6 +30,11 @@ namespace Alcastock.Controllers
         public void SalvarProduto(ProdutoModel produto)
         {
             _repositorio.Salvar(produto);
+        }
+
+        public void AtualizarProduto(int produtoId, ProdutoModel produto)
+        {
+            _repositorio.AtualizarProduto(produtoId, produto);
         }
 
         public void ExcluirProduto(int produtoId)
