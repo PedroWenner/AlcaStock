@@ -53,7 +53,7 @@ public partial class Paginas_Produto_CadProduto : AppBasePage
     /// <param name="e"></param>
     protected void btnVoltar_Click(object sender, EventArgs e)
     {
-        Response.Redirect("../Produto/ConProduto");
+        Response.Redirect("/Paginas/Produto/ConProduto");
     }
 
     /// <summary>
@@ -120,7 +120,7 @@ public partial class Paginas_Produto_CadProduto : AppBasePage
             Response.Cookies["MsgSucesso"].Expires = DateTime.Now.AddSeconds(1); // Define o tempo de expiração do cookie
 
             // Redireciona para a página de destino
-            Response.Redirect("/Produto/ConProduto");
+            Response.Redirect("/Paginas/Produto/ConProduto");
         }
         else
         {

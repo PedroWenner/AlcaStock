@@ -24,7 +24,7 @@ namespace Produto.Repositorios
                 string query = @"
                     SELECT
 	                    CASE WHEN ATIVO = 'S' THEN 'ATIVO' ELSE 'INATIVO' END AS ATIVO,
-	                    CASE WHEN TIPO = 1 THEN 'PRODUTO' ELSE 'SERVIÇO' END AS TIPO,
+	                    CASE WHEN P.TIPO = 1 THEN 'PRODUTO' ELSE 'SERVIÇO' END AS TIPO,
 	                    M.NOME AS NOME_MARCA,
 	                    UM.NOME AS NOME_UNIDADE_MEDIDA,
 	                    *

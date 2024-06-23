@@ -110,7 +110,7 @@
                                 </asp:ContentPlaceHolder>
                             </div>
                             <div class="divTituloPagina">
-                                <img src="../Library/Images/SetaTitulo.png" align="top" alt="" />
+                                <img src="../../Library/Images/SetaTitulo.png" align="top" alt="" />
                                 <asp:Label ID="lblTituloPagina" runat="server"></asp:Label>
                             </div>
                             <div style="padding: 10px">
@@ -167,14 +167,14 @@
             <i class="fas fa-angle-up"></i>
         </a>
 
-        <script src="../Library/lib/jquery/dist/jquery.min.js" type="text/javascript"></script>
-        <script src="../Library/lib/bootstrap/dist/js/bootstrap.bundle.min.js" type="text/javascript"></script>
-        <script src="../Library/lib/bootstrap/dist/js/bootstrap.min.js" type="text/javascript"></script>
+        <script src="../../Library/lib/jquery/dist/jquery.min.js" type="text/javascript"></script>
+        <script src="../../Library/lib/bootstrap/dist/js/bootstrap.bundle.min.js" type="text/javascript"></script>
+        <script src="../../Library/lib/bootstrap/dist/js/bootstrap.min.js" type="text/javascript"></script>
 
-        <script src="../Library/js/jquery.easing.min.js" asp-append-version="true" type="text/javascript"></script>
-        <script src="../Library/js/sb-admin-2.min.js" asp-append-version="true" type="text/javascript"></script>
+        <script src="../../Library/js/jquery.easing.min.js" asp-append-version="true" type="text/javascript"></script>
+        <script src="../../Library/js/sb-admin-2.min.js" asp-append-version="true" type="text/javascript"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js" type="text/javascript"></script>
-        <script src="../Library/js/site.js" asp-append-version="true" type="text/javascript"></script>
+        <script src="../../Library/js/site.js" asp-append-version="true" type="text/javascript"></script>
 
         <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.min.js" type="text/javascript"></script>
         <script type="text/javascript">

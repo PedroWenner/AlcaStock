@@ -15,11 +15,11 @@ namespace AlcaStock
             routes.EnableFriendlyUrls(settings);
 
             // Adicionar rotas personalizadas
-            routes.MapPageRoute("Inicio", "Inicio", "~/Inicial.aspx");
-            routes.MapPageRoute("ConPessoaRoute", "Pessoa/ConPessoa", "~/Paginas/Pessoa/ConPessoa.aspx");
-            routes.MapPageRoute("CadPessoaRoute", "Pessoa/CadPessoa", "~/Paginas/Pessoa/CadPessoa.aspx");
-            routes.MapPageRoute("ConProdutoRoute", "Produto/ConProduto", "~/Paginas/Produto/ConProduto.aspx");
-            routes.MapPageRoute("CadProdutoRoute", "Produto/CadProduto", "~/Paginas/Produto/CadProduto.aspx");
+            //routes.MapPageRoute("Inicio", "Inicio", "~/Inicial.aspx");
+            //routes.MapPageRoute("ConPessoaRoute", "Pessoa/ConPessoa", "~/Paginas/Pessoa/ConPessoa.aspx");
+            //routes.MapPageRoute("CadPessoaRoute", "Pessoa/CadPessoa", "~/Paginas/Pessoa/CadPessoa.aspx");
+            //routes.MapPageRoute("ConProdutoRoute", "Produto/ConProduto", "~/Paginas/Produto/ConProduto.aspx");
+            //routes.MapPageRoute("CadProdutoRoute", "Produto/CadProduto", "~/Paginas/Produto/CadProduto.aspx");
         }
     }
 }

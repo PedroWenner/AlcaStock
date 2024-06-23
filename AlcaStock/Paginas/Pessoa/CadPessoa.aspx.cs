@@ -50,7 +50,7 @@ public partial class Paginas_Pessoa_CadPessoa : AppBasePage
     /// <param name="e"></param>
     protected void btnVoltar_Click(object sender, EventArgs e)
     {
-        Response.Redirect("../Pessoa/ConPessoa");
+        Response.Redirect("/Paginas/Pessoa/ConPessoa");
     }
 
     /// <summary>
@@ -126,7 +126,7 @@ public partial class Paginas_Pessoa_CadPessoa : AppBasePage
             Response.Cookies["MsgSucesso"].Expires = DateTime.Now.AddSeconds(1); // Define o tempo de expiração do cookie
 
             // Redireciona para a página de destino
-            Response.Redirect("/Pessoa/ConPessoa");
+            Response.Redirect("/Paginas/Pessoa/ConPessoa");
         }
         else
         {
