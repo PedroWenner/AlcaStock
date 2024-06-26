@@ -467,14 +467,15 @@ input:disabled {
 }
 
 .custom-gridview .data-row:hover {
-    background-color: #e5e4e4;
+    background-color: #e5e4e4!important;
 }
 
 /* Estilo para o cabe�alho, se necess�rio */
 .gridview-header {
-    background-color: #4e73df;
-    background-image: linear-gradient(#3760d9, #466ad3 100%);
-    border: 1px solid #224bc1;
+    background-color: #4e73df !important;
+    background-image: linear-gradient(#3760d9, #466ad3 100%) !important;
+    border: 1px solid #224bc1 !important;
+    background: #4e73df !important;
     /*background-size: cover;
     background: #3760d9;
     background: linear-gradient(#3760d9, #466ad3 100%);*/ /* Implementa��o W3C */
@@ -487,7 +488,7 @@ input:disabled {
 }
 
 .custom-gridview {
-    border: none;
+    border: none !important;
 }
 
 .rotuloCaixaPesquisar {
@@ -693,4 +694,12 @@ inpu#quantityo {
 
 .pdb-20 {
     padding-bottom: 20px!important;
+}
+
+.aspNetHidden {
+    display: none!important;
+}
+
+.form-control {
+    border-radius: 5px !important;
 }
