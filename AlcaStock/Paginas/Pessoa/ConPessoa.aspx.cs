@@ -2,6 +2,9 @@
 using Models;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.Data.SqlClient;
+using System.Web.Services;
 using System.Web.UI.WebControls;
 
 public partial class Paginas_Pessoa_ConPessoa : AppBasePage
@@ -97,5 +100,22 @@ public partial class Paginas_Pessoa_ConPessoa : AppBasePage
         gvPessoas.DataSource = pessoas;
         gvPessoas.DataBind();
     }
+
+    [WebMethod]
+    public static List<string> GetPessoas(string term)
+    {
+        PessoaController pessoaController = new PessoaController();
+        List<PessoaModel> pessoas = pessoaController.ConsultarPessoas("0", term);
+
+
+        List<string> nomes = new List<string>();
+        foreach (var pessoa in pessoas)
+        {
+            nomes.Add(pessoa.NOME);
+        }
+
+        return nomes;
+    }
+
     #endregion Metodos
 }

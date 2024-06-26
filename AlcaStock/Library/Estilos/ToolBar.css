@@ -1,11 +1,4 @@
-﻿/*.DataGridFixedHeader 
-{
-    position:fixed;    
-    height:20px;
-  
-}*/
-
-fieldset
+﻿fieldset
 {
     border-radius: 5px 5px 5px 5px; /* Implementação W3C */
     -moz-border-radius: 5px 5px 5px 5px; /* Implementação Mozilla */
@@ -19,7 +12,7 @@ input[type=text]
     -moz-border-radius: 5px 5px 5px 5px; /* Implementação Mozilla */
     -webkit-border-radius: 5px 5px 5px 5px; /* Implementação para browsers que renderizam via webkit */
     border: 1px solid #D0D0D0;
-    padding: 3px;
+    /*padding: 3px;*/
 }
 
 input:hover[type=text]
@@ -43,28 +36,7 @@ input:focus[type=text]
 input[type=submit]
 {
     font-size: 12px;
-    /*border-radius: 5px;
-    -moz-border-radius: 5px;
-    -webkit-border-radius: 5px;
-    cursor: pointer;
-    cursor: hand;
-    color: rgba(0,0,0,0.9);
-    text-shadow: 1px 1px 0px rgba(255,255,255,0.8);
-    border: 1px solid rgba(0,0,0,0.5);
-    background: -webkit-gradient(linear,0% 0%,0% 100%,from(rgba(255,255,255,1)),to(rgba(185,185,185,1)));
-    background: -moz-linear-gradient(top,rgba(255,255,255,1),rgba(185,185,185,1));
-    padding: 2px 5px 2px 5px;
-    border: 1px solid #999999;*/
 }
-
-/*
-input:hover[type=submit]
-{
-    background: #EEEEEE;
-    box-shadow: 0px 0px 2px rgba(0,0,0,0.4);
-    -moz-box-shadow: 0px 0px 2px rgba(0,0,0,0.4);
-    -webkit-box-shadow: 0px 0px 2px rgba(0,0,0,0.4);
-}*/
 
 input[type=button]
 {
@@ -181,9 +153,6 @@ textarea:focus
     -pie-background: linear-gradient(#3760d9, #466ad3 100%);
     filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#3760d9', EndColorStr='#466ad3'); /* IE6,IE7 */
     -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorStr='#3760d9', EndColorStr='#466ad3')"; /* IE8 */
-    /*background-color: #4e73df;
-    background-image: linear-gradient(180deg, #4e73df 10%, #224abe 100%);
-    background-size: cover;*/
 }
 
 .divTituloPagina2
@@ -592,4 +561,3 @@ a.btnProc2:hover
     -webkit-border-radius: 5px 5px 5px 5px; /* Implementação para browsers que renderizam via webkit */
     background: #FFFF99;
 }
-
