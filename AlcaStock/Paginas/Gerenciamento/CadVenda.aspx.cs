@@ -68,19 +68,12 @@ public partial class Paginas_Produto_CadVenda : AppBasePage
     #region Metodos
     private void ConfiguraTela()
     {
+        Utilitarios.AtualizaDropDown(ddlProduto, Utilitarios.Pesquisar("SELECT * FROM PRODUTOS"), "NOME", "PRODUTO_ID", "SELECIONE", "");
         if (_ACAO == "Editar")
         {
             //
         }
     }
 
-    private ProdutoModel ConsultaProduto()
-    {
-        ProdutoController produtoController = new ProdutoController();
-        List<ProdutoModel> produtos = produtoController.ConsultarProdutoPorId(_ID);
-
-        ProdutoModel produto = produtos[0];
-        return produto;
-    }
     #endregion Metodos
 }

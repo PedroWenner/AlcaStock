@@ -18,7 +18,8 @@
         <ContentTemplate>
             <div class="row">
                 <div class="col-auto">
-                    <cc2:FieldDropDown ID="ddlPSQ" runat="server" ValueField="Pesquisar por" CssClass="form-select form-select-sm" Width="150px">
+                    <cc2:FieldDropDown ID="ddlPSQ" runat="server" ValueField="Pesquisar por" CssClass="form-select form-select-sm" Width="150px"
+                        OnSelectedIndexChanged="ddlPSQ_SelectedIndexChanged" AutoPostBack="true">
                         <asp:ListItem Value="0">Nome</asp:ListItem>
                         <asp:ListItem Value="1">CPF</asp:ListItem>
                     </cc2:FieldDropDown>
@@ -41,14 +42,30 @@
     <asp:UpdatePanel runat="server">
         <ContentTemplate>
             <asp:DataGrid ID="grdResultados" runat="server" AutoGenerateColumns="False" CssClass="table table-borderless custom-gridview"
-                OnItemCreated="grdResultados_ItemCreated" OnItemDataBound="grdResultados_ItemDataBound">
+                OnItemCreated="grdResultados_ItemCreated" OnItemDataBound="grdResultados_ItemDataBound" AllowPaging="true" PageSize="15"
+                OnPageIndexChanged="grdResultados_PageIndexChanged" OnItemCommand="grdResultados_ItemCommand">
                 <Columns>
                     <asp:BoundColumn DataField="PESSOA_ID" HeaderText="ID" Visible="false" />
-                    <asp:BoundColumn DataField="NOME" HeaderText="Nome" />
-                    <asp:BoundColumn DataField="CPF" HeaderText="CPF" />
-                    <asp:BoundColumn DataField="DATA_NASC" HeaderText="Data de Nascimento" DataFormatString="{0:dd/MM/yyyy}" />
+                    <asp:BoundColumn DataField="NOME" Visible="false" HeaderText="Nome" />
+                    <asp:TemplateColumn HeaderText="Nome" HeaderStyle-Width="70%">
+                        <ItemTemplate>
+                            <asp:LinkButton ID="lkbNome" runat="server" CommandName="Selecionar" ToolTip="Clique aqui para selecionar este registro"
+                                CssClass="link-body-emphasis link-offset-2 link-underline-opacity-25 link-underline-opacity-75-hover"/>
+                        </ItemTemplate>
+                    </asp:TemplateColumn>
+                    <asp:BoundColumn DataField="CPF" HeaderText="CPF" HeaderStyle-Width="15%" />
+                    <asp:BoundColumn DataField="DATA_NASC" HeaderText="Data de Nascimento" DataFormatString="{0:dd/MM/yyyy}" HeaderStyle-Width="15%" />
+                    <asp:BoundColumn DataField="EMAIL" Visible="false" />
                 </Columns>
+                <PagerStyle Mode="NumericPages" />
             </asp:DataGrid>
         </ContentTemplate>
     </asp:UpdatePanel>
+</asp:Content>
+
+<asp:Content ID="Content4" ContentPlaceHolderID="ContentRodape" runat="Server">
+    <div style="float: left; padding-left: 10px;">
+        <asp:Button ID="btnCancelar" runat="server" Text="Cancelar" Width="96px" CssClass="btn btn-sm btn-outline-secondary"
+            CausesValidation="false" OnClientClick="window.close();" />
+    </div>
 </asp:Content>

@@ -1265,6 +1265,66 @@ public class Utilitarios
         //-> Insere o ListItem na posição Zero
         ddl.Items.Insert(0, lst);
     }
+
+    /// <summary>
+    /// Retorna o valor de um parâmetro passado via QueryString.
+    /// </summary>
+    /// <param name="nome">Nome do parâmetro.</param>
+    /// <param name="tipo">Tipo do parâmetro.</param>
+    /// <returns></returns>
+    public static T GetParametro<T>(string nome, TypeCode tipo)
+    {
+        if (string.IsNullOrEmpty(HttpContext.Current.Request.QueryString[nome]))
+        {
+            return default(T);
+        }
+        else
+        {
+            string value = HttpContext.Current.Request.QueryString[nome];
+
+            switch (tipo)
+            {
+                case TypeCode.Boolean:
+                    return (T)(object)bool.Parse(value);
+                case TypeCode.Byte:
+                    return (T)(object)byte.Parse(value);
+                case TypeCode.Char:
+                    return (T)(object)char.Parse(value);
+                case TypeCode.DBNull:
+                    return default(T);
+                case TypeCode.DateTime:
+                    return (T)(object)DateTime.Parse(value);
+                case TypeCode.Decimal:
+                    return (T)(object)decimal.Parse(value);
+                case TypeCode.Double:
+                    return (T)(object)double.Parse(value);
+                case TypeCode.Empty:
+                    return default(T);
+                case TypeCode.Int16:
+                    return (T)(object)Int16.Parse(value);
+                case TypeCode.Int32:
+                    return (T)(object)Int32.Parse(value);
+                case TypeCode.Int64:
+                    return (T)(object)Int64.Parse(value);
+                case TypeCode.Object:
+                    return default(T);
+                case TypeCode.SByte:
+                    return (T)(object)sbyte.Parse(value);
+                case TypeCode.Single:
+                    return (T)(object)Single.Parse(value);
+                case TypeCode.String:
+                    return (T)(object)value;
+                case TypeCode.UInt16:
+                    return (T)(object)UInt16.Parse(value);
+                case TypeCode.UInt32:
+                    return (T)(object)UInt32.Parse(value);
+                case TypeCode.UInt64:
+                    return (T)(object)UInt64.Parse(value);
+                default:
+                    return default(T);
+            }
+        }
+    }
     #endregion Metodos
 
     #region JavaScript

@@ -19,13 +19,53 @@
             params += ', top=' + top + ', left=' + left;
             params += ', resizable=no';
 
-            window.open(url, 'searchWindow', params);
+            var searchWindow = window.open(url, 'searchWindow', params);
+
+            window.searchWindowCallback = function (retorno) {
+                if (retorno) {
+
+                    var pessoaId = retorno.value;
+                    // Concatena CPF com Nome da pessoa selecionada
+                    var cpfNome = retorno.cpf + ' - ' + retorno.text;
+
+                    document.getElementById('<%= txtPessoaId.ClientID %>').value = cpfNome;
+                    document.getElementById('<%= hdnPessoaId.ClientID %>').value = pessoaId;
+                    document.getElementById('<%= txtPessoaNome.ClientID %>').value = retorno.text;
+                    document.getElementById('<%= txtPessoaEmail.ClientID %>').value = retorno.email;
+                    document.getElementById('<%= txtPessoaCpf.ClientID %>').value = retorno.cpf;
+
+                }
+            };
         }
 
         function clearTextBox() {
             document.getElementById('<%= txtPessoaId.ClientID %>').value = '';
+            document.getElementById('<%= hdnPessoaId.ClientID %>').value = '';
+            document.getElementById('<%= txtPessoaNome.ClientID %>').value = '';
+            document.getElementById('<%= txtPessoaEmail.ClientID %>').value = '';
+            document.getElementById('<%= txtPessoaCpf.ClientID %>').value = '';
         }
-</script>
+
+        $(document).ready(function () {
+            $('#<%= ddlProduto.ClientID %>').select2();
+
+            $('#mais').click(function () {
+                var quantity = parseInt(document.getElementById('<%= txtEstoqueMinimo.ClientID %>').value);
+                //var quantity = parseInt($('#quantity').val());
+                //$('#quantity').val(quantity + 1);
+                document.getElementById('<%= txtEstoqueMinimo.ClientID %>').value = quantity + 1;
+            });
+
+            $('#menos').click(function () {
+                var quantity = parseInt(document.getElementById('<%= txtEstoqueMinimo.ClientID %>').value);
+                //var quantity = parseInt($('#quantity').val());
+                if (quantity > 0) {
+                    document.getElementById('<%= txtEstoqueMinimo.ClientID %>').value = quantity - 1;
+                    //$('#quantity').val(quantity - 1);
+                }
+            });
+        });
+    </script>
 
     <div class="alert alert-danger alert-dismissible fade show" role="alert" runat="server" id="divErros" visible="false">
         <strong>Atenção!</strong>
@@ -38,52 +78,64 @@
     </div>
     
     <div style="display: flex; align-content: center; justify-content: left; margin: 0;">
-        <div style="height: 500px;">
-            <div class="tab-content">
-                <div class="tab-pane fade show active" id="produtoServico" role="tabpanel" aria-labelledby="produtoServicoTab">
-                    <br />
-                    <table width="100%">
-                        <tr>
-                            <td colspan="6">
-                                <div class="input-group input-group-sm mb-3">
-                                    <asp:TextBox ID="txtPessoaId" runat="server" Width="500px" CssClass="form-control form-control-sm" Enabled="false" />
-                                    <button class="btn btn-outline-secondary" type="button" onclick="openSearchWindow()">
-                                        <i class="fas fa-search"></i>
-                                    </button>
-                                    <button class="btn btn-outline-secondary" type="button" onclick="clearTextBox()">
-                                        <i class="fas fa-eraser"></i>
-                                    </button>
-                                    <%--<input id="TextBox1" runat="server" Width="600px" placeholder="Digite o Nome ou CPF" class="form-control form-control-sm" aria-describedby="basic-addon2" />--%>
-                                </div>
-                                <%--<cc5:TextBoxButtonSearch ID="txtPessoaId" Width="550px" runat="server" CssClass="form-control form-control-sm"
-                                    CssClassCaixaBotaoPesquisar="botaoPesquisar" Enabled="false" EnableBotoes="true"
-                                    FunctionCallBackName="scriptCallBackEventoPensao" HeightPopUp="500" ParameterNameSearch="Parameters"
-                                    ParameterValueSearch="null" Resizable="no" ToolTip="Consultar Eventos" UrlImageButton="../../Library/Images/Botoes/Lupa.gif"
-                                    UrlImageButtonOver="../../Library/Images/Botoes/Lupa_S.gif" UrlPopUp="../Eventos/PesqEventos.aspx"
-                                    UrlImageButtonEraser="../../Library/Images/Botoes/apagar_textbox.gif" UrlImageButtonEraserOver="../../Library/Images/Botoes/apagar_textbox_S.gif"
-                                    WidthPopUp="700px">
-                                </cc5:TextBoxButtonSearch>--%>
-                                <%--<asp:TextBox ID="txtPessoaId" runat="server" Width="600px" placeholder="Digite o Nome ou CPF" CssClass="form-control form-control-sm" />--%>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colspan="6" class="pdb-20">
-                                <cc3:FieldTextBox ID="txtPessoaNome" runat="server" Width="600px" ValueField="Nome do Cliente" CssClass="form-control form-control-sm" />
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colspan="6" class="pdb-20">
-                                <cc3:FieldTextBox ID="txtPessoaEmail" runat="server" Width="600px" ValueField="E-mail" CssClass="form-control form-control-sm" />
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colspan="6" class="pdb-20">
-                                <cc3:FieldTextBox ID="txtPessoaCpf" runat="server" Width="600px" ValueField="CPF" CssClass="form-control form-control-sm" />
-                            </td>
-                        </tr>
-                    </table>
-                </div>
-            </div>
+        <div style="height: 500px; width: 100%;">
+            <br />
+            <table width="100%">
+                <tr>
+                    <td colspan="6">
+                        <div class="input-group input-group-sm mb-3" style="width: 600px;">
+                            <asp:TextBox ID="txtPessoaId" runat="server" Width="500px" CssClass="form-control form-control-sm" Enabled="false" />
+                            <button class="btn btn-outline-secondary" type="button" onclick="openSearchWindow()">
+                                <i class="fas fa-search"></i>
+                            </button>
+                            <button class="btn btn-outline-secondary" type="button" onclick="clearTextBox()">
+                                <i class="fas fa-eraser"></i>
+                            </button>
+                        </div>
+                        <asp:HiddenField ID="hdnPessoaId" runat="server" />
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="6" class="pdb-20">
+                        <cc3:FieldTextBox ID="txtPessoaNome" runat="server" Width="600px" ValueField="Nome do Cliente" CssClass="form-control form-control-sm" />
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="6" class="pdb-20">
+                        <cc3:FieldTextBox ID="txtPessoaEmail" runat="server" Width="600px" ValueField="E-mail" CssClass="form-control form-control-sm" />
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="6" class="pdb-20">
+                        <cc3:FieldTextBox ID="txtPessoaCpf" runat="server" Width="600px" ValueField="CPF" CssClass="form-control form-control-sm" />
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="6">
+                        <h4 class="rotuloTitulo">
+                            Lista de Produtos
+                        </h4>
+                        <hr>
+                        <table>
+                            <tr>
+                                <td class="pr-2">
+                                    <b class="rotulo">Código ou nome do Produto</b><br />
+                                    <asp:DropDownList runat="server" ID="ddlProduto" CssClass="form-control form-select form-select-sm" CausesValidation="false" Width="350px" />
+                                </td>
+                                <td class="pr-2">
+                                    <label class="rotulo">Quantidade</label><br />
+                                    <button class="quantidade-btn" id="menos" type="button">-</button>
+                                    <asp:TextBox ID="txtEstoqueMinimo" runat="server" CssClass="quantidade" Text="0" />
+                                    <button class="quantidade-btn" id="mais" type="button">+</button>
+                                </td>
+                                <td valign="bottom">
+                                    <asp:Button ID="btnRegistrar" runat="server" Width="150px" Text="Registrar" CssClass="btn btn-sm btn-outline-primary" />
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
         </div>
     </div>
     

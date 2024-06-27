@@ -16,24 +16,6 @@ select
     font-size: 11px;
 }
 
-.rotuloObrigatorio{
-    font-family: Tahoma ;
-    font-size: 11px ;
-    color: #990000 ;    
-}
-
-.rotuloObrigatorio::after {    
-    color: #990000 !important;
-    content: "*" !important;
-}
-
-.rotulo
-{
-    font-family: Tahoma;
-    font-size: 11px;
-    color: #000000;
-}
-
 .caixaTextoCenter
 {
     font-family: Tahoma;
