@@ -13,6 +13,7 @@ using System.Xml.Linq;
 using System.IO;
 using System.Data;
 using Models;
+using System.Web.Services;
 
 public partial class Paginas_Produto_CadVenda : AppBasePage
 {
@@ -96,15 +97,34 @@ public partial class Paginas_Produto_CadVenda : AppBasePage
         ddlProduto.Items.Insert(0, new ListItem("Selecione um produto", ""));
     }
 
+    private string ValidaCampos()
+    {
+        string erro = string.Empty;
+        if (string.IsNullOrWhiteSpace(hdnPessoaId.Value))
+            erro += "<li>Favor informar a pessoa.</li>";
+        if (string.IsNullOrWhiteSpace(ddlProduto.SelectedValue))
+            erro += "<li>Favor selecionar qual o produto a ser registrado.</li>";
+        if (string.IsNullOrWhiteSpace(txtEstoqueMinimo.Text))
+            erro += "<li>Favor informar a quantidade de produtos vendidos.</li>";
+        else if (int.Parse(txtEstoqueMinimo.Text) <= 0)
+            erro += "<li>Favor informar a quantidade de produtos vendidos.</li>";
+
+        return erro;
+    }
+
     #endregion Metodos
 
     protected void btnRegistrar_Click(object sender, EventArgs e)
     {
-
-    }
-
-    protected void ddlProduto_SelectedIndexChanged(object sender, EventArgs e)
-    {
-        var codigoProduto = ddlProduto.SelectedValue;
+        string erro = ValidaCampos();
+        if (string.IsNullOrWhiteSpace(erro))
+        {
+            VendaController vendaController = new VendaController();
+        }
+        else
+        {
+            divErros.Visible = true;
+            lblErros.Text = erro;
+        }
     }
 }

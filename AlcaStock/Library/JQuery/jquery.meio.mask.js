@@ -146,7 +146,7 @@
 				'pis': { mask: '999.99999.99.9' },
 				'time'				: { mask : '29:59' },
 				'cc'				: { mask : '9999 9999 9999 9999' }, //credit card mask
-				'integer'			: { mask : '999.999.999.999', type : 'reverse' },				
+				'integer'			: { mask : '999999999999', type : 'reverse' },				
 				'decimal'			: { mask : '99,999.999.999.999', type : 'reverse', defaultValue : '000' },
 				'decimal-us'		: { mask : '99.999,999,999,999', type : 'reverse', defaultValue : '000' },
 				'signed-decimal'	: { mask : '99,999.999.999.999', type : 'reverse', defaultValue : '+000' },

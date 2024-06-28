@@ -1,0 +1,250 @@
+label {
+    margin: 0px !important;
+}
+
+.rotulo label {
+    margin: 0px !important;
+}
+
+.ajax__tab_header {
+    padding: 0px !important;
+}
+
+.ajax__tab_xp .ajax__tab_header .ajax__tab_tab {
+    height: 25px !important;
+    padding-top: 0px !important;
+}
+
+.ajax__tab_tab span {
+    color: #465162;
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    font-family: "Open Sans", Arial, sans-serif;
+}
+
+.ajax__tab_default .ajax__tab_tab {
+    overflow: inherit !important;
+}
+
+legend {
+    font-size: 12px !important;
+    color: #465162 !important;
+    margin-bottom: 2px !important;
+}
+
+fieldset table tbody tr td {
+    padding: 4px !important;
+}
+
+    fieldset table tbody tr td label {
+        padding-left: 5px !important;
+    }
+
+input[type=checkbox] {
+    margin-left: 4px !important;
+    margin-right: 4px !important;
+}
+
+input[type=radio] {
+    margin-left: 4px !important;
+    margin-right: 4px !important;
+    position: relative !important;
+}
+
+.divToolbarTop {
+    background-color: #FFF !important;
+    padding: 6px;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+}
+
+.divToolbarTopRed {
+    background-color: red !important;
+    padding: 6px;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    color: #FFF !important;
+}
+
+.PagSisprev td span {
+    font-weight: bold;
+    border: 1px solid #000;
+    padding: 3px;
+}
+
+
+#modalPage {
+    position: fixed !important;
+    width: 100%;
+    height: 100%;
+    top: 0px;
+    left: 0px;
+}
+
+.modalBackground {
+    filter: Alpha(Opacity=40);
+    -moz-opacity: 0.4;
+    opacity: 0.4;
+    width: 100%;
+    height: 100%;
+    background-color: #999999;
+    position: fixed !important;
+    z-index: 1700 !important;
+    top: 0px;
+    left: 0px;
+}
+
+.modalContainer {
+    position: fixed !important;
+    width: 232px;
+    left: 50%;
+    top: 50%;
+    z-index: 750 !important;
+}
+
+.modal {
+    position: relative;
+    top: -80px;
+    left: -116px;
+    z-index: 1000 !important;
+    width: 232px;
+    height: 160px;
+    padding: 0px;
+}
+
+.modalTop {
+}
+
+    .modalTop a, .modalTop a:visited {
+    }
+
+.modalBody {
+}
+
+#modalPage2 {
+    /*display: none;*/
+    position: fixed !important;
+    width: 100%;
+    height: 100%;
+    top: 0px;
+    left: 0px;
+}
+
+.modalBackground2 {
+    filter: Alpha(Opacity=40);
+    -moz-opacity: 0.4;
+    opacity: 0.4;
+    width: 100%;
+    height: 100%;
+    background-color: #999999;
+    position: fixed !important;
+    z-index: 1701;
+    top: 0px;
+    left: 0px;
+}
+
+.modalContainer2 {
+    position: fixed !important;
+    width: 300px;
+    left: 50%;
+    top: 50%;
+    z-index: 1702 !important;
+}
+
+.modal2 {
+    position: relative;
+    top: -80px;
+    left: -150px;
+    z-index: 1703 !important;
+    width: 300px;
+    height: 160px;
+    padding: 0px;
+}
+
+.modalTop2 {
+}
+
+.modalTop a, .modalTop a:visited {
+}
+
+.modalBody2 {
+}
+
+
+.CaixaModalNova {
+    border: 1px solid #FFF;
+    box-shadow: 5px 5px 5px rgba(0,0,0,0.2);
+    border-radius: 5px;
+}
+
+table {
+    font-size: 11px !important;
+    font-family: 'Open Sans';
+}
+
+.DivOver {
+    background-color: #FFFF99;
+    padding: 4px;
+    border: 1px solid #CCC;
+    -webkit-box-shadow: 3px 3px 3px rgba(0,0,0,.2);
+    -moz-box-shadow: 3px 3px 3px rgba(0,0,0,.2);
+    width: 99%;
+    cursor: pointer;
+    cursor: hand;
+}
+
+.DivVisited {
+    background-color: #9FF;
+    padding: 4px;
+    border: 1px solid #CCC;
+    -webkit-box-shadow: 3px 3px 3px rgba(0,0,0,.2);
+    -moz-box-shadow: 3px 3px 3px rgba(0,0,0,.2);
+    width: 99%;
+}
+
+.DivOut {
+    padding: 5px;
+    width: 99%;
+    cursor: pointer;
+    cursor: hand;
+}
+
+.TableArrecadacao tr td {
+    padding: 4px !important;
+    font-size: 11px !important;
+}
+
+.divToolbarTop {
+    padding: 6px !important;
+    padding-top: 2px !important;
+    background-color: #f5f5f5 !important;
+    border-top: 1px solid #dddddd !important;
+    border-bottom-right-radius: 3px !important;
+    border-bottom-left-radius: 3px !important;
+}
+
+.divAzul {
+    padding: 8px !important;
+    background-color: #056DAB !important;
+    color: #FFF !important;
+}
+
+.CaixaModal {
+    border: 1px solid #FFF;
+    box-shadow: 5px 5px 5px rgba(0,0,0,0.2);
+    border-radius: 5px;
+    background-color: #FFF !important;
+}
+
+.select2-drop {
+    z-index: 20000 !important;
+}
+
+.divAzulModal {
+    background-color: #007BC5 !important;
+}
+
+.rotuloObrigatorio {
+    font-weight: bold !important;
+    color: red !important;
+}

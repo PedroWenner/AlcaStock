@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data.SqlClient;
 using System.Web.Services;
+using System.Web.UI;
 using System.Web.UI.WebControls;
 
 public partial class Paginas_Pessoa_ConPessoa : AppBasePage
@@ -38,6 +39,33 @@ public partial class Paginas_Pessoa_ConPessoa : AppBasePage
         if (e.Item.ItemType == ListItemType.Header)
         {
             e.Item.CssClass = "gridview-header";
+        }
+
+        if (e.Item.ItemType == ListItemType.Pager)
+        {
+            e.Item.CssClass = "gridview-footer";
+
+            foreach (Control control in e.Item.Controls)
+            {
+                if (control is TableCell)
+                {
+                    TableCell cell = (TableCell)control;
+
+                    foreach (Control pagerControl in cell.Controls)
+                    {
+                        if (pagerControl is LinkButton)
+                        {
+                            LinkButton link = (LinkButton)pagerControl;
+                            link.CssClass = "link-body-emphasis link-offset-2 link-underline-opacity-25 link-underline-opacity-75-hover";
+                        }
+                        else if (pagerControl is Label)
+                        {
+                            Label label = (Label)pagerControl;
+                            label.CssClass = "link-body-emphasis link-offset-2 link-underline-opacity-25 link-underline-opacity-75-hover";
+                        }
+                    }
+                }
+            }
         }
     }
 
@@ -74,6 +102,12 @@ public partial class Paginas_Pessoa_ConPessoa : AppBasePage
             txtPesquisa.MaxLength = int.MaxValue;
         }
     }
+
+    protected void gvPessoas_PageIndexChanged(object source, DataGridPageChangedEventArgs e)
+    {
+        gvPessoas.CurrentPageIndex = e.NewPageIndex;
+        btnConsultar_Click(null, null);
+    }
     #endregion Events
 
     #region Metodos
@@ -97,6 +131,9 @@ public partial class Paginas_Pessoa_ConPessoa : AppBasePage
             gvPessoas.Columns[1].Visible = true;
         }
 
+        // Ordena a lista de pessoas por nome
+        pessoas.Sort((p1, p2) => p1.NOME.CompareTo(p2.NOME));
+
         gvPessoas.DataSource = pessoas;
         gvPessoas.DataBind();
     }
@@ -118,4 +155,5 @@ public partial class Paginas_Pessoa_ConPessoa : AppBasePage
     }
 
     #endregion Metodos
+
 }

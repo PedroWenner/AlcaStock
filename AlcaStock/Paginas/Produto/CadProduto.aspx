@@ -125,17 +125,20 @@
                                 <table>
                                     <tr>
                                         <td class="pdr-10">
-                                            <cc3:FieldTextBox ID="txtCodigo" runat="server" ValueField="Código" Width="150px" Style="padding: 5px;" CssClass="form-control-pesquisar" />
+                                            <label class="rotulo">Código</label>
+                                            <asp:TextBox ID="txtCodigo" runat="server" Width="150px" CssClass="form-control form-control-sm" />
                                         </td>
                                         <td class="pdr-10">
-                                            <cc3:FieldDropDown ID="ddlTipo" runat="server" ValueField="Tipo" Obrigatorio="true" Width="150px" CssClass="form-control-dropdown">
+                                            <label class="rotulo">Tipo</label>
+                                            <asp:DropDownList ID="ddlTipo" runat="server" ValueField="Tipo" Obrigatorio="true" Width="150px">
                                                 <asp:ListItem Text="SELECIONE" Value="0" />
                                                 <asp:ListItem Text="PRODUTO" Value="1" />
                                                 <asp:ListItem Text="SERVIÇO" Value="2" />
-                                            </cc3:FieldDropDown>
+                                            </asp:DropDownList>
                                         </td>
                                         <td class="pdr-10">
-                                            <cc3:FieldTextBox ID="txtNome" runat="server" onkeyup="convertToUppercase(event);" ValueField="Nome" Width="600px" Style="padding: 5px;" CssClass="form-control-pesquisar" Obrigatorio="true" />                         
+                                            <label class="rotulo">Nome</label>
+                                            <asp:TextBox ID="txtNome" runat="server" onkeyup="convertToUppercase(event);" Width="600px" Style="padding: 5px;" CssClass="form-control form-control-sm" />                         
                                         </td>
                                     </tr>
                                 </table>
@@ -149,16 +152,13 @@
                             <td>
                                 <table>
                                     <tr>
-                                        <%--<td class="pdr-10">
-                                            <cc3:FieldDropDown ID="ddlGrupo" runat="server" ValueField="Grupo*" style="padding: 4px;" Width="310px" CssClass="input-cadastro">
-                                                <asp:ListItem Text="Selecione" Value="0" Selected="True" />
-                                            </cc3:FieldDropDown>
-                                        </td>--%>
                                         <td class="pdr-10">
-                                            <cc3:FieldDropDown ID="ddlMarca" runat="server" ValueField="Marca" Obrigatorio="true" CssClass="form-control-dropdown" Width="300px" />
+                                            <label class="rotulo">Marca</label>
+                                            <asp:DropDownList ID="ddlMarca" runat="server" Obrigatorio="true" Width="300px" />
                                         </td>
                                         <td class="pdr-10">
-                                            <cc3:FieldDropDown ID="ddlUnidadeMedida" runat="server" ValueField="Unid. medida" Obrigatorio="true" CssClass="form-control-dropdown" Width="300px" />
+                                            <label class="rotulo">Unid. medida</label>
+                                            <asp:DropDownList ID="ddlUnidadeMedida" runat="server" Obrigatorio="true" Width="300px" />
                                         </td>
                                     </tr>
                                 </table>
@@ -169,20 +169,21 @@
                                 <table>
                                     <tr>
                                         <td class="pdr-10">
-                                            <cc3:FieldTextBox ID="txtCusto" runat="server" ValueField="Custo (R$)" Width="150px" CssClass="form-control-pesquisar money" onblur="calculaPrecoVenda();" />
-                                        </td>
-                                        <%--<td class="pdr-10">
-                                            <cc3:FieldTextBox ID="txtLucroEsperado" runat="server" ValueField="Lucro Esperado (R$)" Width="150px" CssClass="input-cadastro money" />
-                                        </td>--%>
-                                        <td class="pdr-10">
-                                            <cc3:FieldTextBox ID="txtPercLucro" runat="server" ValueField="Perc. Lucro (%)" Width="150px" CssClass="form-control-pesquisar perc" onblur="calculaPrecoVenda();" />
+                                            <label class="rotulo">Custo (R$)</label>
+                                            <asp:TextBox ID="txtCusto" runat="server" Width="150px" CssClass="form-control form-control-sm money" onblur="calculaPrecoVenda();" />
                                         </td>
                                         <td class="pdr-10">
-                                            <cc3:FieldTextBox ID="txtPrecoVenda" runat="server" ValueField="Preço Venda (R$)" Width="150px" CssClass="form-control-pesquisar money" Enabled="false" />
+                                            <label class="rotulo">Perc. Lucro (%)</label>
+                                            <asp:TextBox ID="txtPercLucro" runat="server" Width="150px" CssClass="form-control form-control-sm perc" onblur="calculaPrecoVenda();" />
+                                        </td>
+                                        <td class="pdr-10">
+                                            <label class="rotulo">Preço Venda (R$)</label>
+                                            <asp:TextBox ID="txtPrecoVenda" runat="server" Width="150px" CssClass="form-control form-control-sm money" Enabled="false" />
                                             <asp:HiddenField ID="hdnPrecoVenda" runat="server" />
                                         </td>
                                         <td class="pdr-10">
-                                            <cc3:FieldTextBox ID="txtLiquido" runat="server" ValueField="Líquido (R$)" Width="150px" CssClass="form-control-pesquisar money" Enabled="false" />
+                                            <label class="rotulo">Líquido (R$)</label>
+                                            <asp:TextBox ID="txtLiquido" runat="server" Width="150px" CssClass="form-control form-control-sm money" Enabled="false" />
                                         </td>
                                     </tr>
                                 </table>
@@ -207,12 +208,7 @@
                                             <button class="quantidade-btn" id="menos" type="button">-</button>
                                             <asp:TextBox ID="txtEstoqueMinimo" runat="server" CssClass="quantidade" Text="0" />
                                             <button class="quantidade-btn" id="mais" type="button">+</button>
-                                            <%--<div class="quantity-container">
-                                            </div>--%>
                                         </td>
-                                        <%--<td class="pdr-10">
-                                            <cc3:FieldTextBox ID="txtEstoqueAtual" runat="server" ValueField="Estoque Atual" Width="150px" CssClass="input-cadastro" Enabled="false" />
-                                        </td>--%>
                                     </tr>
                                 </table>
                             </td>
@@ -233,19 +229,11 @@
                                         </td>
                                         <td class="pdr-10">
                                             <asp:Label runat="server" Font-Bold="true" CssClass="rotulo">Data Cadastro</asp:Label>
-                                            <div class="input-group">
-                                                <cc3:FieldTextBox ID="txtDataCadastro" runat="server"
-                                                    Style="width: 100px;" CssClass="date form-control-pesquisar" MaxLength="10" Enabled="false" />
-                                                <cc2:CalendarExtender ID="CalendarExtender1" runat="server" TargetControlID="txtDataCadastro"
-                                                    Animated="true" Format="dd/MM/yyyy" />
-                                            </div>
+                                            <asp:TextBox ID="txtDataCadastro" runat="server" Width="100px" CssClass="date form-control form-control-sm" MaxLength="10" Enabled="false" />
                                         </td>
                                         <td class="pdr-10">
-                                            <asp:Label runat="server" Font-Bold="true" CssClass="rotulo">Data Atualização</asp:Label>
-                                            <div class="input-group">
-                                                <cc3:FieldTextBox ID="txtDataAtualizacao" runat="server"
-                                                    Style="width: 100px;" CssClass="date form-control-pesquisar" MaxLength="10" Enabled="false" />
-                                            </div>
+                                            <label class="rotulo">Data Atualização</label>
+                                            <asp:TextBox ID="txtDataAtualizacao" runat="server" Width="100px" CssClass="date form-control form-control-sm" MaxLength="10" Enabled="false" />
                                         </td>
                                     </tr>
                                 </table>

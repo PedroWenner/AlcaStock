@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" MasterPageFile="~/MasterPages/Cadastro.master" AutoEventWireup="true" CodeFile="CadPessoa.aspx.cs" Inherits="Paginas_Pessoa_CadPessoa" Title="Cadastro de Pessoas" %>
+﻿<%@ Page Language="C#" MasterPageFile="~/MasterPages/Cadastro.master" AutoEventWireup="true" CodeFile="CadPessoa.aspx.cs" Inherits="Paginas_Pessoa_CadPessoa" Title="Cadastro de Pessoas" EnableEventValidation="false" %>
 
 <%@ Register Assembly="AGENDA.Controles" Namespace="AGENDA.Controles.UI.ButtonToolBar" TagPrefix="cc1" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc2" %>
@@ -39,28 +39,27 @@
                                 <table>
                                     <tr>
                                         <td class="pdr-10">
-                                            <cc3:FieldTextBox ID="txt_PESSOAS_CPF_CNPJ" runat="server" ValueField="CPF" Width="300px" Style="padding: 5px;" CssClass="form-control-pesquisar CPF" Obrigatorio="true" />
+                                            <label runat="server" class="rotulo">CPF</label>
+                                            <asp:TextBox ID="txt_PESSOAS_CPF_CNPJ" runat="server" Width="300px" Style="padding: 5px;" CssClass="form-control form-control-sm txtCpf" />
                                         </td>
                                         <td class="pdr-10">
-                                            <cc3:FieldTextBox ID="txt_PESSOAS_NOME" runat="server" ValueField="Nome Completo" Width="300px" onkeyup="convertToUppercase(event);" 
-                                                CssClass="form-control-pesquisar" Obrigatorio="true" MaxLength="400" />
+                                            <label runat="server" class="rotulo">Nome Completo</label>
+                                            <asp:TextBox ID="txt_PESSOAS_NOME" runat="server" Width="300px" onkeyup="convertToUppercase(event);" MaxLength="400" CssClass="form-control form-control-sm" />
                                         </td>
                                         <td class="pdr-10">
-                                            <cc3:FieldDropDown ID="ddl_PESSOAS_SEXO" runat="server" ValueField="Sexo" CssClass="form-control form-control-sm form-control-dropdown">
+                                            <label runat="server" class="rotulo">Sexo</label>
+                                            <asp:DropDownList ID="ddl_PESSOAS_SEXO" runat="server" CssClass="form-control form-control-sm">
                                                 <asp:ListItem Text="Masculino" Value="M" />
                                                 <asp:ListItem Text="Feminino" Value="F" />
-                                            </cc3:FieldDropDown>
+                                            </asp:DropDownList>
                                         </td>
                                         <td class="pdr-10">
-                                            <asp:Label runat="server" Font-Bold="true" CssClass="rotuloObrigatorio">Data Nasc.</asp:Label>
-                                            <div class="input-group">
-                                                <cc3:FieldTextBox ID="txt_PESSOAS_DATA_NASC" runat="server"
-                                                    Style="width: 100px;" CssClass="date form-control-pesquisar" MaxLength="10" />
-                                                <cc2:CalendarExtender ID="CalendarExtender1" runat="server" TargetControlID="txt_PESSOAS_DATA_NASC"
-                                                    PopupButtonID="ImageButton1" Animated="true" Format="dd/MM/yyyy" />
-                                                <div class="input-group-append">
+                                            <label runat="server" class="rotulo">Data Nasc.</label>
+                                            <div class="input-group input-group-sm">
+                                                <asp:TextBox ID="txt_PESSOAS_DATA_NASC" runat="server" Width="100px" CssClass="date form-control form-control-sm" MaxLength="10" aria-describedby="dvIconDate" />
+                                                <div class="input-group-text" id="dvIconDate">
                                                     <button type="button" class="iconeDate" style="border: none; background: none;" >
-                                                        <i class="fas fa-calendar-alt fa-lg"></i>
+                                                        <i class="fas fa-calendar-alt fa-sm"></i>
                                                     </button>
                                                 </div>
                                             </div>
@@ -78,25 +77,12 @@
                                 <table>
                                     <tr>
                                         <td class="pdr-10">
-                                            <cc3:FieldTextBox ID="txt_PESSOAS_NOME_MAE" runat="server" ValueField="Nome Mãe" Width="300px" onkeyup="convertToUppercase(event);" 
-                                                CssClass="form-control-pesquisar" Obrigatorio="true" MaxLength="400" />
+                                            <label runat="server" class="rotulo">Nome Mãe</label>
+                                            <asp:TextBox ID="txt_PESSOAS_NOME_MAE" runat="server" Width="300px" onkeyup="convertToUppercase(event);" MaxLength="400" CssClass="form-control form-control-sm" />
                                         </td>
                                         <td class="pdr-10">
-                                            <cc3:FieldTextBox ID="txt_PESSOAS_CPF_MAE" runat="server" ValueField="CPF Mãe" Width="300px" Style="padding: 5px;" CssClass="form-control-pesquisar CPF" Obrigatorio="true" />
-                                        </td>
-                                    </tr>
-                                </table>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <table>
-                                    <tr>
-                                        <td class="pdr-10">
-                                            <cc3:FieldTextBox ID="txt_PESSOAS_NOME_PAI" runat="server" ValueField="Nome Pai" Width="300px" onkeyup="convertToUppercase(event);" CssClass="form-control-pesquisar" MaxLength="400" />
-                                        </td>
-                                        <td class="pdr-10">
-                                            <cc3:FieldTextBox ID="txt_PESSOAS_CPF_PAI" runat="server" ValueField="CPF Pai" Width="300px" Style="padding: 5px;" CssClass="form-control-pesquisar CPF" />
+                                            <label runat="server" class="rotulo">CPF Mãe</label>
+                                            <asp:TextBox ID="txt_PESSOAS_CPF_MAE" runat="server" Width="300px" Style="padding: 5px;" CssClass="txtCpf form-control form-control-sm" />
                                         </td>
                                     </tr>
                                 </table>
@@ -107,12 +93,12 @@
                                 <table>
                                     <tr>
                                         <td class="pdr-10">
-                                            <cc3:FieldTextBox ID="txt_PESSOAS_TELEFONE_RESIDENCIAL" runat="server" ValueField="Telefone Residencial" Width="300px" CssClass="form-control-pesquisar"
-                                                oninput="maskPhone(event)" maxlength="16" />
+                                            <label runat="server" class="rotulo">Nome Pai</label>
+                                            <asp:TextBox ID="txt_PESSOAS_NOME_PAI" runat="server" Width="300px" onkeyup="convertToUppercase(event);" MaxLength="400" CssClass="form-control form-control-sm" />
                                         </td>
                                         <td class="pdr-10">
-                                            <cc3:FieldTextBox ID="txt_PESSOAS_TELEFONE_CELULAR" runat="server" ValueField="Telefone Celular" Width="300px" CssClass="form-control-pesquisar" 
-                                                oninput="maskPhone(event)" maxlength="16" Obrigatorio="true" />
+                                            <label runat="server" class="rotulo">CPF Pai</label>
+                                            <asp:TextBox ID="txt_PESSOAS_CPF_PAI" runat="server" Width="300px" Style="padding: 5px;" CssClass="txtCpf form-control form-control-sm" />
                                         </td>
                                     </tr>
                                 </table>
@@ -123,7 +109,24 @@
                                 <table>
                                     <tr>
                                         <td class="pdr-10">
-                                            <cc3:FieldTextBox ID="txt_PESSOAS_EMAIL" runat="server" ValueField="E-mail" Width="300px" CssClass="form-control-pesquisar" MaxLength="400" />
+                                            <label runat="server" class="rotulo">Telefone Residencial</label>
+                                            <asp:TextBox ID="txt_PESSOAS_TELEFONE_RESIDENCIAL" runat="server" Width="300px" oninput="maskPhone(event)" maxlength="16" CssClass="form-control form-control-sm" />
+                                        </td>
+                                        <td class="pdr-10">
+                                            <label runat="server" class="rotulo">Telefone Celular</label>
+                                            <asp:TextBox ID="txt_PESSOAS_TELEFONE_CELULAR" runat="server" Width="300px" oninput="maskPhone(event)" maxlength="16" CssClass="form-control form-control-sm" />
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <table>
+                                    <tr>
+                                        <td class="pdr-10">
+                                            <label runat="server" class="rotulo">E-mail</label>
+                                            <asp:TextBox ID="txt_PESSOAS_EMAIL" runat="server" Width="300px" MaxLength="400" CssClass="form-control form-control-sm" />
                                         </td>                            
                                     </tr>
                                 </table>

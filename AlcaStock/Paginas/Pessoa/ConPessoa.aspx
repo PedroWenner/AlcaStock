@@ -46,7 +46,8 @@
     <asp:UpdatePanel runat="server">
         <ContentTemplate>
             <asp:DataGrid ID="gvPessoas" runat="server" AutoGenerateColumns="False" CssClass="table table-borderless custom-gridview"
-                OnItemCreated="gvPessoas_ItemCreated" OnItemDataBound="gvPessoas_ItemDataBound" OnItemCommand="gvPessoas_ItemCommand">
+                OnItemCreated="gvPessoas_ItemCreated" OnItemDataBound="gvPessoas_ItemDataBound" OnItemCommand="gvPessoas_ItemCommand"
+                 AllowPaging="true" PageSize="15" OnPageIndexChanged="gvPessoas_PageIndexChanged">
                 <Columns>
                     <asp:TemplateColumn HeaderText="Excluir">
                         <HeaderStyle HorizontalAlign="Center" Width="30px"></HeaderStyle>
@@ -79,6 +80,7 @@
                     <asp:BoundColumn DataField="TELEFONE_CELULAR" HeaderText="Telefone Celular" />
                     <asp:BoundColumn DataField="EMAIL" HeaderText="E-mail" />
                 </Columns>
+                <PagerStyle Mode="NumericPages" />
             </asp:DataGrid>
         </ContentTemplate>
     </asp:UpdatePanel>

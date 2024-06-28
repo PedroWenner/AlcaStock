@@ -219,7 +219,7 @@ $.fn.simpleTree = function(opt){
 			TREE.setEventLine($('.line, .line-last', obj));
 		};
 		TREE.setTrigger = function(node){
-			$('>span',node).before('<img class="trigger" src="../Library/Images/IconesTreeView/spacer.gif" border=0>');
+			$('>span',node).before('<img class="trigger" src="../Images/IconesTreeView/spacer.gif" border=0>');
 			var trigger = $('>.trigger', node);
 			trigger.click(function(event){
 				TREE.nodeToggle(node);

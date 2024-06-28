@@ -18,17 +18,16 @@
         <ContentTemplate>
             <div class="row">
                 <div class="col-auto">
-                    <cc2:FieldDropDown ID="ddlPSQ" runat="server" ValueField="Pesquisar por" CssClass="form-select form-select-sm" Width="150px"
+                    <label class="rotulo">Pesquisar por</label>
+                    <asp:DropDownList ID="ddlPSQ" runat="server" CssClass="form-select form-select-sm" Width="150px"
                         OnSelectedIndexChanged="ddlPSQ_SelectedIndexChanged" AutoPostBack="true">
                         <asp:ListItem Value="0">Nome</asp:ListItem>
                         <asp:ListItem Value="1">CPF</asp:ListItem>
-                    </cc2:FieldDropDown>
+                    </asp:DropDownList>
                 </div>
                 <div class="col-auto">
-                    <label class="rotuloCaixaPesquisar">Descrição</label>
-                    <div class="input-group input-group-sm">
-                        <cc2:FieldTextBox ID="txtPesquisa" runat="server" CssClass="form-control form-control-sm" Width="250px" onkeyup="convertToUppercase(event);" />
-                    </div>
+                    <label class="rotulo">Descrição</label>
+                    <cc2:FieldTextBox ID="txtPesquisa" runat="server" CssClass="form-control form-control-sm" Width="250px" onkeyup="convertToUppercase(event);" />
                 </div>
                 <div class="col-auto d-flex align-items-end">
                     <asp:Button ID="btnConsultar" Text="Consultar" runat="server" CssClass="btn btn-sm btn-outline-dark" OnClick="btnConsultar_Click"/>

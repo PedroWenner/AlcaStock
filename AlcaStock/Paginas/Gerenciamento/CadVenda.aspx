@@ -7,7 +7,7 @@
 <%@ Register Assembly="AGENDA.Controles" Namespace="AGENDA.Controles.PopUp" TagPrefix="cc5" %>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentCampos" runat="server">    
-    <asp:UpdatePanel runat="server">
+    <asp:UpdatePanel runat="server" ID="pnlContent">
         <ContentTemplate>
             <script type="text/javascript">
                 function openSearchWindow() {
@@ -47,18 +47,53 @@
                     document.getElementById('<%= txtPessoaCpf.ClientID %>').value = '';
                 }
 
-                $(document).ready(function () {
+                function applySelect2() {
                     $('#<%= ddlProduto.ClientID %>').select2();
+                }
+
+                Sys.WebForms.PageRequestManager.getInstance().add_endRequest(function () {
+                    applySelect2();
+                });
+
+                $(document).ready(function () {
+                    applySelect2();
+
+                    $('#<%= ddlProduto.ClientID %>').change(function () {
+                        var selectedProductId = $(this).val();
+
+                        // Chamada AJAX para o método WebService
+                        $.ajax({
+                            type: "POST",
+                            url: "../../WebService/WebService.asmx/GetProductBalance",
+                            data: JSON.stringify({ productId: selectedProductId }),
+                            contentType: "application/json; charset=utf-8",
+                            dataType: "json",
+                            success: function (response) {
+                                $('#<%= txtSaldoAtual.ClientID %>').val(response.d);
+                            },
+                            error: function (xhr, status, error) {
+                                console.log("Erro ao obter saldo do produto:", error);
+                            }
+                        });
+                    });
 
                     $('#mais').click(function () {
                         var quantity = parseInt(document.getElementById('<%= txtEstoqueMinimo.ClientID %>').value);
-                        document.getElementById('<%= txtEstoqueMinimo.ClientID %>').value = quantity + 1;
+                        var saldoAtual = parseInt(document.getElementById('<%= txtSaldoAtual.ClientID %>').value);
+
+                        if (saldoAtual > 0) {
+                            document.getElementById('<%= txtEstoqueMinimo.ClientID %>').value = quantity + 1;
+                            document.getElementById('<%= txtSaldoAtual.ClientID %>').value = saldoAtual - 1;
+                        }
                     });
 
                     $('#menos').click(function () {
                         var quantity = parseInt(document.getElementById('<%= txtEstoqueMinimo.ClientID %>').value);
+                        var saldoAtual = parseInt(document.getElementById('<%= txtSaldoAtual.ClientID %>').value);
+
                         if (quantity > 0) {
                             document.getElementById('<%= txtEstoqueMinimo.ClientID %>').value = quantity - 1;
+                            document.getElementById('<%= txtSaldoAtual.ClientID %>').value = saldoAtual + 1;
                         }
                     });
                 });
@@ -117,8 +152,7 @@
                                     <tr>
                                         <td class="pr-2">
                                             <b class="rotulo">Código ou nome do Produto</b><br />
-                                            <asp:DropDownList runat="server" ID="ddlProduto" CssClass="form-control form-select form-select-sm" CausesValidation="false" Width="350px"
-                                                OnSelectedIndexChanged="ddlProduto_SelectedIndexChanged" AutoPostBack="true" />
+                                            <asp:DropDownList runat="server" ID="ddlProduto" CausesValidation="false" Width="350px" />
                                         </td>
                                         <td class="pr-2">
                                             <b class="rotulo">Saldo Atual</b><br />
