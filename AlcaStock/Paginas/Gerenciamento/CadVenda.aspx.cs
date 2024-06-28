@@ -68,12 +68,43 @@ public partial class Paginas_Produto_CadVenda : AppBasePage
     #region Metodos
     private void ConfiguraTela()
     {
-        Utilitarios.AtualizaDropDown(ddlProduto, Utilitarios.Pesquisar("SELECT * FROM PRODUTOS"), "NOME", "PRODUTO_ID", "SELECIONE", "");
+        CarregarProdutos();
         if (_ACAO == "Editar")
         {
             //
         }
     }
 
+    private void CarregarProdutos()
+    {
+        ProdutoController produtoController = new ProdutoController();
+        List<ProdutoModel> produtos = produtoController.ConsultarProdutos("1", "");
+
+        if (produtos == null || produtos.Count == 0)
+        {
+            produtos = new List<ProdutoModel>
+            {
+                new ProdutoModel { CODIGO = "Nenhum registro encontrado" }
+            };
+        }
+
+        ddlProduto.DataSource = produtos;
+        ddlProduto.DataTextField = "NOME";
+        ddlProduto.DataValueField = "PRODUTO_ID";
+        ddlProduto.DataBind();
+
+        ddlProduto.Items.Insert(0, new ListItem("Selecione um produto", ""));
+    }
+
     #endregion Metodos
+
+    protected void btnRegistrar_Click(object sender, EventArgs e)
+    {
+
+    }
+
+    protected void ddlProduto_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        var codigoProduto = ddlProduto.SelectedValue;
+    }
 }

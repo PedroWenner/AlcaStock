@@ -112,9 +112,10 @@
 
                     <form id="form1" runat="server">
                         <div id="conteudo" style="width: 100%;">
-                            <asp:ScriptManager ID="ScriptManager1" runat="server" EnableScriptGlobalization="true"
+                            <%--<asp:ScriptManager ID="ScriptManager1" runat="server" EnableScriptGlobalization="true"
                                 EnableScriptLocalization="true" AsyncPostBackTimeout="19920" EnablePartialRendering="true">
-                            </asp:ScriptManager>
+                            </asp:ScriptManager>--%>
+                            <asp:ScriptManager runat="server" ID="ScriptManager1" />
                             <div id="tdNavegacao" style="padding-left: 10px;">
                                 <asp:ContentPlaceHolder ID="ContentNavegacao" runat="server">
                                 </asp:ContentPlaceHolder>
