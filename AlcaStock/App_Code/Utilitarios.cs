@@ -1370,20 +1370,25 @@ public class Utilitarios
     {
         if (controle.ToString() == "System.Web.UI.WebControls.TextBox" || controle.ToString() == "AGENDA.Controles.UI.FieldTextBox")
         {
+            // Somente os TextBoxes que possuirem a propriedade ToolTip definida como UPPER
+            // serão tratados para entrada de texto Upper.
             int a = ((System.Web.UI.WebControls.TextBox)controle).CssClass.ToUpper().LastIndexOf("UPPER");
 
             if (((System.Web.UI.WebControls.TextBox)controle).CssClass.ToUpper() == "UPPER")
             {
                 TratarEntradadeDados.Upper((System.Web.UI.WebControls.TextBox)controle);
             }
+
             else if (((System.Web.UI.WebControls.TextBox)controle).CssClass.ToUpper() == "CPF")
             {
                 TratarEntradadeDados.CPF((System.Web.UI.WebControls.TextBox)controle);
             }
+
             else if (((System.Web.UI.WebControls.TextBox)controle).CssClass.ToUpper() == "CEP")
             {
                 TratarEntradadeDados.CEP((System.Web.UI.WebControls.TextBox)controle);
             }
+
             else if (((System.Web.UI.WebControls.TextBox)controle).CssClass.ToUpper() == "CNPJ")
             {
                 TratarEntradadeDados.CNPJ((System.Web.UI.WebControls.TextBox)controle);
@@ -1392,17 +1397,11 @@ public class Utilitarios
             {
                 TratarEntradadeDados.MONEY((System.Web.UI.WebControls.TextBox)controle);
             }
-            else if (((System.Web.UI.WebControls.TextBox)controle).CssClass.ToUpper() == "DATE")
-            {
-                TratarEntradadeDados.MascaraData((System.Web.UI.WebControls.TextBox)controle);
-            }
-            else if (((System.Web.UI.WebControls.TextBox)controle).CssClass.ToUpper() == "CELULAR")
-            {
-                TratarEntradadeDados.MascaraCelular((System.Web.UI.WebControls.TextBox)controle);
-            }
         }
         else if (controle.ToString() == "System.Web.UI.WebControls.DropDownList")
         {
+            // Tratamento dos objetos dropDownLists para que a procura aproximada
+            // possa ser realizada durante a digitação pelo usuário no mesmo
             if (((System.Web.UI.WebControls.DropDownList)controle).CssClass.ToUpper() == "POSTJAVA")
             {
                 TratarEntradadeDados.SetFilterDropdownlist((System.Web.UI.WebControls.DropDownList)controle, true);

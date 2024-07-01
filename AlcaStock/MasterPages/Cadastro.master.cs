@@ -30,8 +30,10 @@ public partial class MasterPages_Cadastro : System.Web.UI.MasterPage
     }
 
     #endregion Propriedades
+
     protected void Page_Load(object sender, EventArgs e)
     {
+        Utilitarios.AtribuirFuncoesJava(Parent.Page);
         RegistrarDefaultFocus();
 
         if (!(Page is AppBasePage))

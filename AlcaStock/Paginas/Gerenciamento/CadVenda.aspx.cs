@@ -94,7 +94,7 @@ public partial class Paginas_Produto_CadVenda : AppBasePage
         ddlProduto.DataValueField = "PRODUTO_ID";
         ddlProduto.DataBind();
 
-        ddlProduto.Items.Insert(0, new ListItem("Selecione um produto", ""));
+        ddlProduto.Items.Insert(0, new ListItem("SELECIONE", ""));
     }
 
     private string ValidaCampos()

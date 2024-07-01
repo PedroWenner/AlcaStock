@@ -80,8 +80,8 @@
         $('.txtCnpj').mask('99.999.999/9999-99');
         $('.txtFone').mask('9999-9999');
         $('.txtFoneCode').mask('(99) 9999-9999');
-        $('.txtFone9').mask('99999-9999');   //Fone com 9 dígitos
-        $('.txtFoneCode9').mask('(99) 99999-9999');    //Fone com 9 dígitos + DDD
+        $('.txtFone9').mask('9 9999-9999');
+        $('.txtFoneCode9').mask('(99) 9 9999-9999');
         $('.txtCep').mask('99999-999');
         $('.txtDate').mask('99/99/9999');
         $('.txtAno').mask('9999');

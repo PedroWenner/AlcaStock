@@ -47,16 +47,11 @@
                     document.getElementById('<%= txtPessoaCpf.ClientID %>').value = '';
                 }
 
-                function applySelect2() {
-                    $('#<%= ddlProduto.ClientID %>').select2();
-                }
-
-                Sys.WebForms.PageRequestManager.getInstance().add_endRequest(function () {
-                    applySelect2();
-                });
+                var prm = Sys.WebForms.PageRequestManager.getInstance();
+                prm.add_endRequest(function () { BindControlEvents(); });
 
                 $(document).ready(function () {
-                    applySelect2();
+                    BindControlEvents();
 
                     $('#<%= ddlProduto.ClientID %>').change(function () {
                         var selectedProductId = $(this).val();

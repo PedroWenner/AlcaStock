@@ -135,36 +135,22 @@ public class AppBasePage : Page
         Header.Controls.Add(new LiteralControl(PageUtility.GetClientScriptInclude(Utilitarios.CaminhoWEB() + "Library/Scripts/Mascaras.js")));
         Header.Controls.Add(new LiteralControl(PageUtility.GetClientScriptInclude(Utilitarios.CaminhoWEB() + "Library/Scripts/jquery.js")));
         Header.Controls.Add(new LiteralControl(PageUtility.GetClientScriptInclude(Utilitarios.CaminhoWEB() + "Library/Scripts/teclaf1.js")));
-        Header.Controls.Add(new LiteralControl(PageUtility.GetClientScriptInclude(Utilitarios.CaminhoWEB() + "Library/Chat/Scripts/jquery.titlealert.min.js")));
-        Header.Controls.Add(new LiteralControl(PageUtility.GetCSSInclude(Utilitarios.CaminhoWEB() + "Library/Chat/ChatJs/Styles/jquery.chatjs.css")));
+        //Header.Controls.Add(new LiteralControl(PageUtility.GetClientScriptInclude(Utilitarios.CaminhoWEB() + "Library/Chat/Scripts/jquery.titlealert.min.js")));
+        //Header.Controls.Add(new LiteralControl(PageUtility.GetCSSInclude(Utilitarios.CaminhoWEB() + "Library/Chat/ChatJs/Styles/jquery.chatjs.css")));
         base.OnLoad(e);
     }
 
     protected override void Render(System.Web.UI.HtmlTextWriter writer)
     {
-        System.IO.StringWriter stringWriter = new System.IO.StringWriter();
-        HtmlTextWriter htmlWriter = new HtmlTextWriter(stringWriter);
-        base.Render(htmlWriter);
-        string html = stringWriter.ToString();
-        int StartPoint = html.IndexOf("<input type=\"hidden\" name=\"__VIEWSTATE\"");
+        base.Render(writer);
 
-        if (StartPoint >= 0)
-        {
-            int EndPoint = html.IndexOf("/>", StartPoint) + 2;
-            string viewstateInput = html.Substring(StartPoint, EndPoint - StartPoint);
-            html = html.Remove(StartPoint, EndPoint - StartPoint);
-            int FormEndStart = html.IndexOf("</form>") - 1;
-            if (FormEndStart >= 0)
-            {
-                html = html.Insert(FormEndStart, viewstateInput);
-            }
-        }
-        writer.Write(html);
         Label lbl = null;
+
         // Grava Log de acesso
         if (this.Page.Master != null)
             lbl = (Label)this.Page.Master.FindControl("lblTituloPagina");
         else lbl = (Label)this.Page.FindControl("lblTituloPagina");
+
         if (lbl != null && lbl.Text != string.Empty)
         {
             DataTable dt = Utilitarios.Pesquisar("SELECT TOP 1 * FROM USR_ACESSO WHERE USR_LOGIN_ID=" +
@@ -176,104 +162,69 @@ public class AppBasePage : Page
                 DateTime HoraUltimo = Convert.ToDateTime(dt.Rows[0]["DATA_HORA"]);
                 TimeSpan dif = Hora.Subtract(HoraUltimo);
 
-                if (dif.TotalSeconds > 5 && dt.Rows[0]["DESCRICAO_MODULO"].ToString() != lbl.Text)
-                {
-                    UtilsLogin.GravaLogAcesso(lbl.Text, Sessoes.IP,
-                        Utilitarios.Exec_StringSql_Return("SELECT SISTEMA + ' / BD: ' + BD FROM dbo.getVersaoSistema(0)"),
-                            UtilsLogin.DadosUsuarioLogado.LOGIN, (int)UtilsLogin.DadosUsuarioLogado.USR_LOGIN_ID);
-                }
+                //if (dif.TotalSeconds > 5 && dt.Rows[0]["DESCRICAO_MODULO"].ToString() != lbl.Text)
+                //{
+                //    UtilsLogin.GravaLogAcesso(lbl.Text, Sessoes.IP, UtilsLogin.VERSAO_SISTEMA, UtilsLogin.DadosUsuarioLogado.LOGIN);
+                //}
             }
         }
+
+        //System.IO.StringWriter stringWriter = new System.IO.StringWriter();
+        //HtmlTextWriter htmlWriter = new HtmlTextWriter(stringWriter);
+        //base.Render(htmlWriter);
+        //string html = stringWriter.ToString();
+        //int StartPoint = html.IndexOf("<input type=\"hidden\" name=\"__VIEWSTATE\"");
+
+        //if (StartPoint >= 0)
+        //{
+        //    int EndPoint = html.IndexOf("/>", StartPoint) + 2;
+        //    string viewstateInput = html.Substring(StartPoint, EndPoint - StartPoint);
+        //    html = html.Remove(StartPoint, EndPoint - StartPoint);
+        //    int FormEndStart = html.IndexOf("</form>") - 1;
+        //    if (FormEndStart >= 0)
+        //    {
+        //        html = html.Insert(FormEndStart, viewstateInput);
+        //    }
+        //}
+        //writer.Write(html);
+        //Label lbl = null;
+        //// Grava Log de acesso
+        //if (this.Page.Master != null)
+        //    lbl = (Label)this.Page.Master.FindControl("lblTituloPagina");
+        //else lbl = (Label)this.Page.FindControl("lblTituloPagina");
+        //if (lbl != null && lbl.Text != string.Empty)
+        //{
+        //    DataTable dt = Utilitarios.Pesquisar("SELECT TOP 1 * FROM USR_ACESSO WHERE USR_LOGIN_ID=" +
+        //            UtilsLogin.DadosUsuarioLogado.USR_LOGIN_ID + " ORDER BY USR_ACESSO_ID DESC");
+
+        //    if (dt.Rows.Count > 0)
+        //    {
+        //        DateTime Hora = DateTime.Now;
+        //        DateTime HoraUltimo = Convert.ToDateTime(dt.Rows[0]["DATA_HORA"]);
+        //        TimeSpan dif = Hora.Subtract(HoraUltimo);
+
+        //        if (dif.TotalSeconds > 5 && dt.Rows[0]["DESCRICAO_MODULO"].ToString() != lbl.Text)
+        //        {
+        //            UtilsLogin.GravaLogAcesso(lbl.Text, Sessoes.IP,
+        //                Utilitarios.Exec_StringSql_Return("SELECT SISTEMA + ' / BD: ' + BD FROM dbo.getVersaoSistema(0)"),
+        //                    UtilsLogin.DadosUsuarioLogado.LOGIN, (int)UtilsLogin.DadosUsuarioLogado.USR_LOGIN_ID);
+        //        }
+        //    }
+        //}
     }
 
-    protected override void OnInit(EventArgs e)
-    {
-        ViewStateCompression = Deflater.BEST_COMPRESSION;
-        base.OnInit(e);
-    }
-
-    //protected override void SavePageStateToPersistenceMedium(Object state)
+    //protected override void OnInit(EventArgs e)
     //{
-    //    if (ViewStateCompression == Deflater.NO_COMPRESSION)
-    //    {
-    //        base.SavePageStateToPersistenceMedium(state);
-    //        return;
-    //    }
-
-    //    Object viewState = state;
-    //    if (state is Pair)
-    //    {
-    //        Pair statePair = (Pair)state;
-    //        PageStatePersister.ControlState = statePair.First;
-    //        viewState = statePair.Second;
-    //    }
-
-    //    using (StringWriter writer = new StringWriter())
-    //    {
-    //        new LosFormatter().Serialize(writer, viewState);
-    //        string base64 = writer.ToString();
-    //        byte[] compressed = Compress(Convert.FromBase64String((base64)));
-    //        PageStatePersister.ViewState = Convert.ToBase64String(compressed);
-    //    }
-    //    PageStatePersister.Save();
+    //    ViewStateCompression = Deflater.BEST_COMPRESSION;
+    //    base.OnInit(e);
     //}
 
-    //protected override Object LoadPageStateFromPersistenceMedium()
+    //private const int BUFFER_SIZE = 65536;
+    //private int viewStateCompression = Deflater.NO_COMPRESSION;
+
+    //private int ViewStateCompression
     //{
-    //    if (viewStateCompression == Deflater.NO_COMPRESSION)
-    //        return base.LoadPageStateFromPersistenceMedium();
-
-    //    PageStatePersister.Load();
-    //    String base64 = PageStatePersister.ViewState.ToString();
-    //    byte[] state = Decompress(Convert.FromBase64String(base64));
-    //    string serializedState = Convert.ToBase64String(state);
-
-    //    object viewState = new LosFormatter().Deserialize(serializedState);
-    //    return new Pair(PageStatePersister.ControlState, viewState);
-    //}
-
-    private const int BUFFER_SIZE = 65536;
-    private int viewStateCompression = Deflater.NO_COMPRESSION;
-
-    private int ViewStateCompression
-    {
-        get { return viewStateCompression; }
-        set { viewStateCompression = value; }
-    }
-
-    //private byte[] Compress(byte[] bytes)
-    //{
-    //    using (MemoryStream memoryStream = new MemoryStream(BUFFER_SIZE))
-    //    {
-    //        Deflater deflater = new Deflater(ViewStateCompression);
-    //        using (Stream stream = new DeflaterOutputStream(memoryStream, deflater, BUFFER_SIZE))
-    //        {
-    //            stream.Write(bytes, 0, bytes.Length);
-    //        }
-    //        return memoryStream.ToArray();
-    //    }
-    //}
-
-    //private byte[] Decompress(byte[] bytes)
-    //{
-    //    using (MemoryStream byteStream = new MemoryStream(bytes))
-    //    {
-    //        using (Stream stream = new InflaterInputStream(byteStream))
-    //        {
-    //            using (MemoryStream memory = new MemoryStream(BUFFER_SIZE))
-    //            {
-    //                byte[] buffer = new byte[BUFFER_SIZE];
-    //                while (true)
-    //                {
-    //                    int size = stream.Read(buffer, 0, BUFFER_SIZE);
-    //                    if (size <= 0)
-    //                        break;
-
-    //                    memory.Write(buffer, 0, size);
-    //                }
-    //                return memory.ToArray();
-    //            }
-    //        }
-    //    }
+    //    get { return viewStateCompression; }
+    //    set { viewStateCompression = value; }
     //}
 }
