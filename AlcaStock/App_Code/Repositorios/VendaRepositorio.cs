@@ -20,6 +20,43 @@ namespace Produto.Repositorios
             _connectionString = Utilitarios.conStr;
         }
 
+        public List<VendasModel> ConsultarVendas()
+        {
+            List<VendasModel> vendas = new List<VendasModel>();
+
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                string query = @"
+                    SELECT V.VENDA_ID, P.NOME AS NOME_PESSOA, P.CPF, PR.NOME AS NOME_PRODUTO, P.PESSOA_ID, PR.PRODUTO_ID
+                    FROM VENDAS V
+                    JOIN PESSOAS P ON P.PESSOA_ID = V.PESSOA_ID
+                    JOIN PRODUTOS PR ON PR.PRODUTO_ID = V.PRODUTO_ID
+                    WHERE 1=1";
+
+                SqlCommand cmd = new SqlCommand(query, connection);
+
+                connection.Open();
+                SqlDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    VendasModel venda = new VendasModel
+                    {
+                        VendaId = int.Parse(reader["VENDA_ID"].ToString())
+                        , PessoaId = int.Parse(reader["PESSOA_ID"].ToString())
+                        , ProdutoId = int.Parse(reader["PRODUTO_ID"].ToString())
+                        , NomePessoa = reader["NOME_PESSOA"].ToString()
+                        , CpfPessoa = reader["CPF"].ToString()
+                        , NomeProduto = reader["NOME_PRODUTO"].ToString()
+                    };
+
+                    vendas.Add(venda);
+                }
+            }
+
+            return vendas;
+        }
+
         /// <summary>
         /// Método para salvar as vendas
         /// </summary>

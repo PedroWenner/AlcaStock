@@ -11,6 +11,9 @@ namespace Models
         private int _pessoaId;
         private int _produtoId;
         private int _quantidade;
+        private string _nomePessoa;
+        private string _cpfPessoa;
+        private string _nomeProduto;
         private string _sisUsuarioInsert;
         private DateTime _sisDataInsert;
         private string _sisUsuarioUpdate;
@@ -38,6 +41,24 @@ namespace Models
         {
             get { return _quantidade; }
             set { _quantidade = value; }
+        }
+
+        public string NomePessoa
+        {
+            get { return _nomePessoa; }
+            set { _nomePessoa = value; }
+        }
+
+        public string CpfPessoa
+        {
+            get { return _cpfPessoa; }
+            set { _cpfPessoa = value; }
+        }
+
+        public string NomeProduto
+        {
+            get { return _nomeProduto; }
+            set { _nomeProduto = value; }
         }
 
         public string SisUsuarioInsert

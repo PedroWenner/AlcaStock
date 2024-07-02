@@ -166,6 +166,17 @@
                                 </table>
                             </td>
                         </tr>
+                        <tr>
+                            <td colspan="6">
+                                <br />
+                                <asp:DataGrid ID="grdVendas" runat="server" AutoGenerateColumns="False" CssClass="table table-borderless custom-gridview"
+                                    OnItemCreated="grdVendas_ItemCreated" OnItemDataBound="grdVendas_ItemDataBound">
+                                    <Columns>
+                                        <asp:BoundColumn DataField="NomePessoa" HeaderText="Nome"></asp:BoundColumn>
+                                    </Columns>
+                                </asp:DataGrid>
+                            </td>
+                        </tr>
                     </table>
                 </div>
             </div>

@@ -42,7 +42,6 @@ public partial class Paginas_Produto_CadVenda : AppBasePage
         if (!IsPostBack)
         {
             ConfiguraTela();
-            Utilitarios.AtribuirFuncoesJava(this);
         }
     }
 
@@ -70,6 +69,7 @@ public partial class Paginas_Produto_CadVenda : AppBasePage
     private void ConfiguraTela()
     {
         CarregarProdutos();
+        ConsultaVendas();
         if (_ACAO == "Editar")
         {
             //
@@ -97,6 +97,23 @@ public partial class Paginas_Produto_CadVenda : AppBasePage
         ddlProduto.Items.Insert(0, new ListItem("SELECIONE", ""));
     }
 
+    private void ConsultaVendas()
+    {
+        VendaController vendaController = new VendaController();
+        List<VendasModel> vendas = vendaController.ConsultarVendas();
+
+        if (vendas == null || vendas.Count == 0)
+        {
+            vendas = new List<VendasModel>
+            {
+                new VendasModel { NomePessoa = "Nenhum registro encontrado" }
+            };
+        }
+
+        grdVendas.DataSource = vendas;
+        grdVendas.DataBind();
+    }
+
     private string ValidaCampos()
     {
         string erro = string.Empty;
@@ -120,11 +137,43 @@ public partial class Paginas_Produto_CadVenda : AppBasePage
         if (string.IsNullOrWhiteSpace(erro))
         {
             VendaController vendaController = new VendaController();
+            VendasModel venda = new VendasModel
+            {
+                PessoaId = int.Parse(hdnPessoaId.Value),
+                ProdutoId = int.Parse(ddlProduto.SelectedValue),
+                Quantidade = int.Parse(txtEstoqueMinimo.Text),
+                SisUsuarioInsert = "Pedro Wenner",
+                SisDataInsert = DateTime.Now
+            };
+
+            vendaController.Salvar(venda);
+
+            //Response.Cookies["MsgSucesso"].Value = "Venda adicionada com sucesso!";
+            //Response.Cookies["Sucesso"].Value = "true";
+            //Response.Cookies["Sucesso"].Expires = DateTime.Now.AddSeconds(1); // Define o tempo de expiração do cookie
+            //Response.Cookies["MsgSucesso"].Expires = DateTime.Now.AddSeconds(1); // Define o tempo de expiração do cookie
+
         }
         else
         {
             divErros.Visible = true;
             lblErros.Text = erro;
+        }
+    }
+
+    protected void grdVendas_ItemCreated(object sender, DataGridItemEventArgs e)
+    {
+        if (e.Item.ItemType == ListItemType.Header)
+        {
+            e.Item.CssClass = "gridview-header";
+        }
+    }
+
+    protected void grdVendas_ItemDataBound(object sender, DataGridItemEventArgs e)
+    {
+        if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
+        {
+            e.Item.CssClass = "data-row";
         }
     }
 }

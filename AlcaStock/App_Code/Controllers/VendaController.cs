@@ -1,4 +1,5 @@
 ﻿using Models;
+using Produto.Models;
 using Produto.Repositorios;
 using System;
 using System.Collections.Generic;
@@ -18,6 +19,11 @@ namespace Alcastock.Controllers
             _repositorio = new VendaRepositorio();
         }
 
+        public List<VendasModel> ConsultarVendas()
+        {
+            List<VendasModel> vendas = _repositorio.ConsultarVendas();
+            return vendas;
+        }
         public void Salvar(VendasModel venda)
         {
             _repositorio.Salvar(venda);
