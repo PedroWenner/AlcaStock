@@ -35,6 +35,8 @@
                             document.getElementById('<%= txtPessoaEmail.ClientID %>').value = retorno.email;
                             document.getElementById('<%= txtPessoaCpf.ClientID %>').value = retorno.cpf;
 
+                            document.getElementById('<%=btnConsultarVendas.ClientID %>').click();
+
                         }
                     };
                 }
@@ -45,15 +47,14 @@
                     document.getElementById('<%= txtPessoaNome.ClientID %>').value = '';
                     document.getElementById('<%= txtPessoaEmail.ClientID %>').value = '';
                     document.getElementById('<%= txtPessoaCpf.ClientID %>').value = '';
+
+                    document.getElementById('<%=btnConsultarVendas.ClientID %>').click();
                 }
 
-                var prm = Sys.WebForms.PageRequestManager.getInstance();
-                prm.add_endRequest(function () { BindControlEvents(); });
-
                 $(document).ready(function () {
-                    BindControlEvents();
 
-                    $('#<%= ddlProduto.ClientID %>').change(function () {
+                    // Usar delegação de eventos para garantir que o evento continue funcionando após postbacks
+                    $(document).on('change', '#<%= ddlProduto.ClientID %>', function () {
                         var selectedProductId = $(this).val();
 
                         // Chamada AJAX para o método WebService
@@ -72,23 +73,23 @@
                         });
                     });
 
-                    $('#mais').click(function () {
-                        var quantity = parseInt(document.getElementById('<%= txtEstoqueMinimo.ClientID %>').value);
-                        var saldoAtual = parseInt(document.getElementById('<%= txtSaldoAtual.ClientID %>').value);
+                    $(document).on('click', '#mais', function () {
+                        var quantity = parseInt($('#<%= txtEstoqueMinimo.ClientID %>').val());
+                        var saldoAtual = parseInt($('#<%= txtSaldoAtual.ClientID %>').val());
 
                         if (saldoAtual > 0) {
-                            document.getElementById('<%= txtEstoqueMinimo.ClientID %>').value = quantity + 1;
-                            document.getElementById('<%= txtSaldoAtual.ClientID %>').value = saldoAtual - 1;
+                            $('#<%= txtEstoqueMinimo.ClientID %>').val(quantity + 1);
+                            $('#<%= txtSaldoAtual.ClientID %>').val(saldoAtual - 1);
                         }
                     });
 
-                    $('#menos').click(function () {
-                        var quantity = parseInt(document.getElementById('<%= txtEstoqueMinimo.ClientID %>').value);
-                        var saldoAtual = parseInt(document.getElementById('<%= txtSaldoAtual.ClientID %>').value);
+                    $(document).on('click', '#menos', function () {
+                        var quantity = parseInt($('#<%= txtEstoqueMinimo.ClientID %>').val());
+                        var saldoAtual = parseInt($('#<%= txtSaldoAtual.ClientID %>').val());
 
                         if (quantity > 0) {
-                            document.getElementById('<%= txtEstoqueMinimo.ClientID %>').value = quantity - 1;
-                            document.getElementById('<%= txtSaldoAtual.ClientID %>').value = saldoAtual + 1;
+                            $('#<%= txtEstoqueMinimo.ClientID %>').val(quantity - 1);
+                            $('#<%= txtSaldoAtual.ClientID %>').val(saldoAtual + 1);
                         }
                     });
                 });
@@ -105,7 +106,7 @@
             </div>
 
             <div style="display: flex; align-content: center; justify-content: left; margin: 0;">
-                <div style="height: 500px; width: 100%;">
+                <div style="height: auto; width: 100%; min-height: 500px;">
                     <br />
                     <table width="100%">
                         <tr>
@@ -161,18 +162,25 @@
                                         </td>
                                         <td valign="bottom">
                                             <asp:Button ID="btnRegistrar" runat="server" Width="150px" Text="Registrar" CssClass="btn btn-sm btn-outline-primary" OnClick="btnRegistrar_Click" />
+                                            <asp:Button ID="btnConsultarVendas" runat="server" Width="150px" OnClick="btnConsultarVendas_Click" style="display: none;" />
                                         </td>
                                     </tr>
                                 </table>
                             </td>
                         </tr>
                         <tr>
-                            <td colspan="6">
+                            <td colspan="6" align="left">
                                 <br />
                                 <asp:DataGrid ID="grdVendas" runat="server" AutoGenerateColumns="False" CssClass="table table-borderless custom-gridview"
-                                    OnItemCreated="grdVendas_ItemCreated" OnItemDataBound="grdVendas_ItemDataBound">
+                                    OnItemCreated="grdVendas_ItemCreated" OnItemDataBound="grdVendas_ItemDataBound" Width="50%">
                                     <Columns>
-                                        <asp:BoundColumn DataField="NomePessoa" HeaderText="Nome"></asp:BoundColumn>
+                                        <asp:BoundColumn DataField="VendaId" Visible="false"></asp:BoundColumn>
+                                        <asp:BoundColumn DataField="ProdutoId" Visible="false"></asp:BoundColumn>
+                                        <asp:BoundColumn DataField="PessoaId" Visible="false"></asp:BoundColumn>
+                                        <asp:BoundColumn DataField="NomePessoa" HeaderText="NOME" Visible="false" HeaderStyle-Width="40%"></asp:BoundColumn>
+                                        <asp:BoundColumn DataField="CpfPessoa" HeaderText="CPF" Visible="false" HeaderStyle-Width="20%"></asp:BoundColumn>
+                                        <asp:BoundColumn DataField="NomeProduto" HeaderText="PRODUTO" HeaderStyle-Width="50%"></asp:BoundColumn>
+                                        <asp:BoundColumn DataField="Quantidade" HeaderText="QUANTIDADE" HeaderStyle-Width="10%" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center"></asp:BoundColumn>
                                     </Columns>
                                 </asp:DataGrid>
                             </td>

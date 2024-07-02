@@ -107,6 +107,34 @@ namespace Produto.Repositorios
             return produtos;
         }
 
+        public int ConultaSaldoProdutoRestante(int produtoId)
+        {
+            int saldoRestante = 0;
+
+            string query = @"SELECT SUM(COALESCE(P.ESTOQUE_MININO, 0)) - SUM(COALESCE(V.QUANTIDADE, 0)) AS QTD_RESTANTE
+            FROM PRODUTOS P
+            LEFT JOIN VENDAS V ON V.PRODUTO_ID = P.PRODUTO_ID
+            WHERE P.PRODUTO_ID = @PRODUTO_ID
+            GROUP BY P.PRODUTO_ID";
+
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                SqlCommand cmd = new SqlCommand(query, connection);
+                cmd.Parameters.AddWithValue("@PRODUTO_ID", produtoId);
+
+                connection.Open();
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        saldoRestante = reader.IsDBNull(0) ? 0 : reader.GetInt32(0);
+                    }
+                }
+            }
+
+            return saldoRestante;
+        }
+
         /// <summary>
         /// Método para salvar o produto
         /// </summary>

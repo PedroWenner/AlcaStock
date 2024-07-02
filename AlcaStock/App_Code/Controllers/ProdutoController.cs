@@ -32,6 +32,12 @@ namespace Alcastock.Controllers
             _repositorio.Salvar(produto);
         }
 
+        public int ConultaSaldoProdutoRestante(int produtoId)
+        {
+            int saldoRestante = _repositorio.ConultaSaldoProdutoRestante(produtoId);
+            return saldoRestante;
+        }
+
         public void AtualizarProduto(int produtoId, ProdutoModel produto)
         {
             _repositorio.AtualizarProduto(produtoId, produto);

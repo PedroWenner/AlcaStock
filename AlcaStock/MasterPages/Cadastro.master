@@ -101,9 +101,6 @@
 
                     <form id="form1" runat="server">
                         <div id="conteudo" style="width: 100%;">
-                            <%--<asp:ScriptManager ID="ScriptManager1" runat="server" EnableScriptGlobalization="true"
-                                EnableScriptLocalization="true" AsyncPostBackTimeout="19920" EnablePartialRendering="true">
-                            </asp:ScriptManager>--%>
                             <asp:ScriptManager runat="server" ID="ScriptManager1" AsyncPostBackTimeout="1920" EnablePartialRendering="true" />
                             <div id="tdNavegacao" style="padding-left: 10px;">
                                 <asp:ContentPlaceHolder ID="ContentNavegacao" runat="server">
@@ -123,10 +120,10 @@
                                 <asp:ValidationSummary ID="ValidationSummary1" runat="server" CssClass="erro" DisplayMode="BulletList"
                                     ShowMessageBox="True" ShowSummary="False"></asp:ValidationSummary>
                             </div>
-                            <div class="divToolbarBottom" style="height: 45px;">
-                                <asp:ContentPlaceHolder ID="ContentToolBar" runat="server">
-                                </asp:ContentPlaceHolder>
-                            </div>
+                        </div>
+                        <div class="divToolbarBottom" style="height: 45px; position: fixed; bottom: 0; width: 100%; z-index: 1000;">
+                            <asp:ContentPlaceHolder ID="ContentToolBar" runat="server">
+                            </asp:ContentPlaceHolder>
                         </div>
                     </form>
                 </div>

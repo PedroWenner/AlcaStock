@@ -69,7 +69,6 @@ public partial class Paginas_Produto_CadVenda : AppBasePage
     private void ConfiguraTela()
     {
         CarregarProdutos();
-        ConsultaVendas();
         if (_ACAO == "Editar")
         {
             //
@@ -100,7 +99,12 @@ public partial class Paginas_Produto_CadVenda : AppBasePage
     private void ConsultaVendas()
     {
         VendaController vendaController = new VendaController();
-        List<VendasModel> vendas = vendaController.ConsultarVendas();
+        List<VendasModel> vendas;
+        
+        if (string.IsNullOrWhiteSpace(hdnPessoaId.Value))
+            vendas = null;
+        else
+            vendas = vendaController.ConsultarVendas(int.Parse(hdnPessoaId.Value));
 
         if (vendas == null || vendas.Count == 0)
         {
@@ -147,6 +151,7 @@ public partial class Paginas_Produto_CadVenda : AppBasePage
             };
 
             vendaController.Salvar(venda);
+            ConsultaVendas();
 
             //Response.Cookies["MsgSucesso"].Value = "Venda adicionada com sucesso!";
             //Response.Cookies["Sucesso"].Value = "true";
@@ -175,5 +180,10 @@ public partial class Paginas_Produto_CadVenda : AppBasePage
         {
             e.Item.CssClass = "data-row";
         }
+    }
+
+    protected void btnConsultarVendas_Click(object sender, EventArgs e)
+    {
+        ConsultaVendas();
     }
 }

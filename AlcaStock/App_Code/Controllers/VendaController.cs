@@ -19,9 +19,9 @@ namespace Alcastock.Controllers
             _repositorio = new VendaRepositorio();
         }
 
-        public List<VendasModel> ConsultarVendas()
+        public List<VendasModel> ConsultarVendas(int pessoaId)
         {
-            List<VendasModel> vendas = _repositorio.ConsultarVendas();
+            List<VendasModel> vendas = _repositorio.ConsultarVendas(pessoaId);
             return vendas;
         }
         public void Salvar(VendasModel venda)

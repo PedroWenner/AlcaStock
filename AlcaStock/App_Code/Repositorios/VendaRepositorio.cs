@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Text;
 using System.Web;
 
 namespace Produto.Repositorios
@@ -20,20 +21,21 @@ namespace Produto.Repositorios
             _connectionString = Utilitarios.conStr;
         }
 
-        public List<VendasModel> ConsultarVendas()
+        public List<VendasModel> ConsultarVendas(int pessoaId)
         {
             List<VendasModel> vendas = new List<VendasModel>();
 
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
                 string query = @"
-                    SELECT V.VENDA_ID, P.NOME AS NOME_PESSOA, P.CPF, PR.NOME AS NOME_PRODUTO, P.PESSOA_ID, PR.PRODUTO_ID
+                    SELECT V.VENDA_ID, P.NOME AS NOME_PESSOA, P.CPF, PR.NOME AS NOME_PRODUTO, P.PESSOA_ID, PR.PRODUTO_ID, V.QUANTIDADE
                     FROM VENDAS V
                     JOIN PESSOAS P ON P.PESSOA_ID = V.PESSOA_ID
                     JOIN PRODUTOS PR ON PR.PRODUTO_ID = V.PRODUTO_ID
-                    WHERE 1=1";
+                    WHERE 1=1 AND P.PESSOA_ID = @PESSOA_ID";
 
                 SqlCommand cmd = new SqlCommand(query, connection);
+                cmd.Parameters.AddWithValue("@PESSOA_ID", pessoaId);
 
                 connection.Open();
                 SqlDataReader reader = cmd.ExecuteReader();
@@ -48,6 +50,7 @@ namespace Produto.Repositorios
                         , NomePessoa = reader["NOME_PESSOA"].ToString()
                         , CpfPessoa = reader["CPF"].ToString()
                         , NomeProduto = reader["NOME_PRODUTO"].ToString()
+                        , Quantidade = int.Parse(reader["QUANTIDADE"].ToString())
                     };
 
                     vendas.Add(venda);
@@ -65,7 +68,7 @@ namespace Produto.Repositorios
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
-                string query = @"INSERT INTO VENDAS (PESSOA_ID, PRODUTO_ID, QUANTIDADE, SIS_USUARIO_INSERT) VALUES (@PESSOA_ID, @PRODUTO_ID, @QUANTIDADE, @SIS_USUARIO_INSERT)";
+                string query = @"SET DATEFORMAT DMY; INSERT INTO VENDAS (PESSOA_ID, PRODUTO_ID, QUANTIDADE, SIS_USUARIO_INSERT, SIS_DATA_INSERT) VALUES (@PESSOA_ID, @PRODUTO_ID, @QUANTIDADE, @SIS_USUARIO_INSERT, @SIS_DATA_INSERT)";
 
                 SqlCommand cmd = new SqlCommand(query, connection);
                 SqlParameter[] parms = GetSqlParameterArray(venda);
@@ -74,6 +77,9 @@ namespace Produto.Repositorios
                     cmd.Parameters.Add(parms[i]);
                 }
 
+                string debugCommandText = GetDebugCommandText(cmd);
+                Console.WriteLine(debugCommandText);
+
                 connection.Open();
                 cmd.ExecuteNonQuery();
                 cmd.Dispose();
@@ -81,7 +87,33 @@ namespace Produto.Repositorios
             }
         }
 
+        static string GetDebugCommandText(SqlCommand cmd)
+        {
+            StringBuilder commandText = new StringBuilder(cmd.CommandText);
 
+            foreach (SqlParameter param in cmd.Parameters)
+            {
+                string placeholder = param.ParameterName;
+                string value;
+
+                if (param.Value == DBNull.Value)
+                {
+                    value = "NULL";
+                }
+                else if (param.Value is string || param.Value is DateTime)
+                {
+                    value = "'" + param.Value.ToString() + "'";
+                }
+                else
+                {
+                    value = param.Value.ToString();
+                }
+
+                commandText.Replace(placeholder, value);
+            }
+
+            return commandText.ToString();
+        }
 
         #region parametros
 
@@ -91,10 +123,11 @@ namespace Produto.Repositorios
             {
                 new SqlParameter("PRODUTO_ID", DbType.Int32),
                 new SqlParameter("QUANTIDADE", DbType.Int32),
-                new SqlParameter("SIS_USER_INSERT",DbType.String),
+                new SqlParameter("SIS_USUARIO_INSERT",DbType.String),
                 new SqlParameter("SIS_USUARIO_UPDATE",DbType.String),
                 new SqlParameter("SIS_DATA_UPDATE",DbType.DateTime),
-                new SqlParameter("PESSOA_ID",DbType.Int32)
+                new SqlParameter("PESSOA_ID",DbType.Int32),
+                new SqlParameter("SIS_DATA_INSERT",DbType.DateTime)
             };
 
             for (int i = 0; i <= parms.Length - 1; i++)
@@ -123,6 +156,9 @@ namespace Produto.Repositorios
 
             if (x.PessoaId != 0)
                 parms[5].Value = x.PessoaId;
+
+            if (x.SisDataInsert != null)
+                parms[6].Value = x.SisDataInsert;
 
             return parms;
         }

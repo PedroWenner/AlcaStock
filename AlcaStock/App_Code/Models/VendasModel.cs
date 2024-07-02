@@ -17,7 +17,7 @@ namespace Models
         private string _sisUsuarioInsert;
         private DateTime _sisDataInsert;
         private string _sisUsuarioUpdate;
-        private DateTime _sisDataUpdate;
+        private DateTime? _sisDataUpdate;
 
         public int VendaId
         {
@@ -79,7 +79,7 @@ namespace Models
             set { _sisUsuarioUpdate = value; }
         }
 
-        public DateTime SisDataUpdate
+        public DateTime? SisDataUpdate
         {
             get { return _sisDataUpdate; }
             set { _sisDataUpdate = value; }

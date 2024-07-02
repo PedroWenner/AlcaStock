@@ -19,9 +19,10 @@ public class WebService : System.Web.Services.WebService
     public string GetProductBalance(string productId)
     {
         ProdutoController produtoController = new ProdutoController();
-        List<ProdutoModel> produtos = produtoController.ConsultarProdutoPorId(productId);
-        ProdutoModel produto = produtos[0];
+        int saldoRestante = 0;
+        if (!string.IsNullOrWhiteSpace(productId))
+            saldoRestante = produtoController.ConultaSaldoProdutoRestante(int.Parse(productId));
 
-        return produto.ESTOQUE_MININO.ToString();
+        return saldoRestante.ToString();
     }
 }
